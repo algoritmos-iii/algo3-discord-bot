@@ -9,4 +9,4 @@ export const execute: ExecuteFunction = async (interaction: Interaction) => {
     );
 };
 
-export const name: string = 'ready';
+export const name: string = 'interactionCreate';
