@@ -17,6 +17,7 @@ class Bot extends Client {
                 Intents.FLAGS.GUILDS,
                 Intents.FLAGS.GUILD_MESSAGES,
                 Intents.FLAGS.GUILD_MEMBERS,
+                Intents.FLAGS.GUILD_VOICE_STATES,
             ],
         });
     }
@@ -32,6 +33,7 @@ class Bot extends Client {
         const commandFiles: string[] = fs
             .readdirSync(path.resolve(__dirname, '../commands'))
             .filter((file) => file.endsWith('.js'));
+
         for (const file of commandFiles) {
             const command = require(`../commands/${file}`);
             this.commands.set(command.data.name, command);
