@@ -1,5 +1,5 @@
 import consola, { Consola } from 'consola';
-import { Client, Intents, Collection } from 'discord.js';
+import { Client, Intents, Collection, GuildMember } from 'discord.js';
 import { Config } from '../interfaces/Config';
 import { Command } from '../interfaces/Command';
 import path from 'path';
@@ -10,6 +10,7 @@ class Bot extends Client {
     public commands: Collection<string, Command> = new Collection();
     public events: Collection<string, Event> = new Collection();
     public config!: Config;
+    public queryQueue: GuildMember[] = [];
 
     public constructor() {
         super({
