@@ -25,7 +25,8 @@ export const execute: ExecuteFunction = async (
         oldChannel.members.size === 0
     ) {
         await oldChannel.delete();
-    } else if (newChannel && newChannel!.id === config.mitosisVoiceChannelID) {
+    }
+    if (newChannel && newChannel!.id === config.mitosisVoiceChannelID) {
         const group = member.roles.cache.find((role) =>
             role.name.startsWith('Grupo')
         );
