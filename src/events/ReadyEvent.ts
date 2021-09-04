@@ -11,7 +11,8 @@ import { ExecuteFunction } from '../interfaces/Event';
 
 export const execute: ExecuteFunction = async (client: AlgoBot) => {
     client.logger.success(`Ready! Logged in as ${client.user!.tag}`);
-    
+    client.removeUnusedClonedChannels();
+
     // TODO: Refactor the code below
     const teachersQueryChannel: TextChannel = client.channels.cache.get(
         client.config.teachersQueryChannelID
