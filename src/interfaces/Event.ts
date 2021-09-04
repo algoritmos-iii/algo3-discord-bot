@@ -2,7 +2,7 @@ export interface ExecuteFunction {
     (...args: any): Promise<void>;
 }
 
-export interface Command {
+export interface Event {
     name: string;
     once: boolean;
     execute: ExecuteFunction;
