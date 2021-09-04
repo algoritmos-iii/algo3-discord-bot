@@ -42,7 +42,8 @@ client.on('interactionCreate', async (interaction) => {
                 });
                 return;
             }
-            const consultee: GuildMember | undefined = client.queryQueue.pop();
+            const consultee: GuildMember | undefined =
+                client.queryQueue.shift();
             client.logger.info(
                 interaction.user.tag,
                 `va a responder a ${consultee?.user.tag}`
