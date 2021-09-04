@@ -1,7 +1,14 @@
 // import consola from 'consola';
 import config from '../../config.json';
-import { GuildMember, VoiceState } from 'discord.js';
+import {
+    Channel,
+    Collection,
+    GuildMember,
+    VoiceChannel,
+    VoiceState,
+} from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Event';
+import { client } from '../index';
 
 export const execute: ExecuteFunction = async (
     oldState: VoiceState,
@@ -11,25 +18,39 @@ export const execute: ExecuteFunction = async (
     const newChannel = newState.channel;
     const member: GuildMember = newState.member!;
 
-    if (oldChannel?.id) {
-        if (
-            oldState.channel!.parentId === config.mitosisCategoryID &&
-            oldState.channelId != config.mitosisVoiceChannelID &&
-            oldState.channel!.members.size === 0
-        ) {
-            await oldState.channel!.delete();
-        }
-    }
-
-    if (newChannel!.id === config.mitosisVoiceChannelID) {
-        const createdChannel = await newState.channel!.guild!.channels.create(
-            'Hijo',
-            {
-                type: 'GUILD_VOICE',
-                parent: newState.channel!.parent!,
-            }
+    if (
+        oldChannel &&
+        oldChannel.parentId === config.mitosisCategoryID &&
+        oldChannel.id != config.mitosisVoiceChannelID &&
+        oldChannel.members.size === 0
+    ) {
+        await oldChannel.delete();
+    } else if (newChannel && newChannel!.id === config.mitosisVoiceChannelID) {
+        const group = member.roles.cache.find((role) =>
+            role.name.startsWith('Grupo')
         );
-        member.voice.setChannel(createdChannel);
+        let voiceGroupChannel: Collection<string, Channel> = new Collection();
+        let channelName = `${member.displayName}`;
+        if (group) {
+            channelName = `${group.name}`;
+            voiceGroupChannel = client.channels.cache.filter(
+                (channel) => channel.isVoice() && channel.name === group.name
+            );
+        }
+        if (voiceGroupChannel.size > 0) {
+            await member.voice.setChannel(
+                voiceGroupChannel.first() as VoiceChannel
+            );
+        } else {
+            const createdChannel = await newChannel.guild!.channels.create(
+                `${channelName}`,
+                {
+                    type: 'GUILD_VOICE',
+                    parent: newChannel.parent!,
+                }
+            );
+            member.voice.setChannel(createdChannel);
+        }
     }
 };
 
