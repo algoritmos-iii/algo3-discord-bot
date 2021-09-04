@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/src/index.js",
-    "build": "npm run prettify && tsc",
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && npm run prettify && tsc",
     "load-commands": "npm run build && node ./dist/src/deploy-commands.js",
     "test": "tsc && tsc -w test/test.ts",
-    "dev": "nodemon -e ts --exec \"npm run build && npm start\"",
+    "dev": "npm run clean && nodemon -e ts --exec \"npm run build && npm start\"",
     "prettify": "npx prettier --write 'src/**/*.ts'"
   },
   "repository": {
