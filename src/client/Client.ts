@@ -139,10 +139,21 @@ class Bot extends Client {
         const queryQueueData: EmbedFieldData[] = [];
 
         for (let i = 0; i < this.queryQueue.length; i++) {
-            queryQueueData.push({
-                name: `${i}`,
-                value: `Usuario ${i}`,
-            });
+            const member = this.queryQueue[i];
+            const group = member.roles.cache.find((role) =>
+                role.name.startsWith('Grupo')
+            );
+            if (group) {
+                queryQueueData.push({
+                    name: `#${i + 1} ${member.displayName}`,
+                    value: `${group.name}`,
+                });
+            } else {
+                queryQueueData.push({
+                    name: `#${i} ${member}`,
+                    value: `Sin grupo`,
+                });
+            }
         }
 
         this.queryQueueEmbed = new MessageEmbed()
@@ -166,7 +177,8 @@ class Bot extends Client {
             [this.queryQueueEmbed],
             [
                 new MessageActionRow().addComponents(
-                    this.buttons.get('queue')!.data
+                    this.buttons.get('queue')!.data,
+                    this.buttons.get('out')!.data
                 ),
             ]
         );
