@@ -1,0 +1,11 @@
+{
+    "fail-fast": "http://algoritmos-iii.github.io/assets/bibliografia/fail-fast.pdf",
+    "intro-design-patterns": "http://algoritmos-iii.github.io/assets/bibliografia/intro-design-patterns.pdf",
+    "method-object": "http://algoritmos-iii.github.io/assets/bibliografia/method-object.pdf",
+    "no-silver-bullet": "http://algoritmos-iii.github.io/assets/bibliografia/no-silver-bullet.pdf",
+    "null-object-pattern": "http://algoritmos-iii.github.io/assets/bibliografia/null-object-pattern.pdf",
+    "object-recusion-pattern": "http://algoritmos-iii.github.io/assets/bibliografia/object-recusion-pattern.pdf",
+    "polymorphic-hierarchy": "http://algoritmos-iii.github.io/assets/bibliografia/polymorphic-hierarchy.pdf",
+    "programming-as-theory-building": "http://algoritmos-iii.github.io/assets/bibliografia/programming-as-theory-building.pdf",
+    "simple-technique-for-handling-multiple-polymorphism": "http://algoritmos-iii.github.io/assets/bibliografia/simple-technique-for-handling-multiple-polymorphism.pdf"
+}
