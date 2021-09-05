@@ -6,8 +6,10 @@ import json
 
 
 def write_json(on: str, data: dict):
+    print('Writing json file...')
     with open(on, "w") as outfile:
         json.dump([{"name": name, "url": url} for name, url in data.items()], outfile, indent=4)
+    print('Json file written')
 
 
 def rebuild_links(concrete_links_peaces: list) -> list:
@@ -37,14 +39,16 @@ def get_html_from(url: str):
 
 
 def main():
+    print('Web scraping started...')
     html_page = get_html_from("https://github.com/algoritmos-iii/algoritmos-iii.github.io/tree/master/assets/bibliografia")
     soup = parse_html(html_page)
     pattern = re.compile("^/algoritmos-iii/algoritmos-iii.github.io/blob/master/assets/bibliografia/")
     a_tags = find_all_a_tags_that_matches_pattern(soup, pattern)
+    print('Links scraped')
     hrefs = [link.get('href') for link in a_tags]
     papers_links, links_peaces = filter_papers_links(hrefs)
     name_link_dict = {links_peaces[i][-1].rstrip(".pdf"):papers_links[i] for i in range(len(papers_links))}
-    write_json(on="../assets/bibliography_links.json", data=name_link_dict)
+    write_json(on="./assets/bibliography_links.json", data=name_link_dict)
 
 
 main()
