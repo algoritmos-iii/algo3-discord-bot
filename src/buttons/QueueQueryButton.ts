@@ -12,6 +12,16 @@ export const execute = async (interaction: ButtonInteraction) => {
             ephemeral: true,
         });
         return;
+    } else if (
+        !member.voice.channel ||
+        member.voice.channel.parentId !== client.config.mitosisCategoryID
+    ) {
+        await interaction.reply({
+            content:
+                'Debes estar en un canal de voz de grupo para poder usar este botón!',
+            ephemeral: true,
+        });
+        return;
     }
     if (group) {
         if (client.queryQueue.hasSomeMemberOf(group)) {
@@ -22,7 +32,6 @@ export const execute = async (interaction: ButtonInteraction) => {
             return;
         }
     }
-    client.logger.info(interaction.user.tag, 'quiere ayuda');
     client.queryQueue.enqueue(member);
     client.updateQueryQueueEmbed();
 };
