@@ -10,9 +10,14 @@ You'll need to create a `config.json` in the main directory file like this
 
 ```
 {
-  "clientID": "YOUR_CLIENT_ID",
-  "guildID": "YOUR_GUILD_ID",
-  "token": "YOUR_CLIENT_TOKEN"
+  "clientID": "CLIENT_ID",
+  "guildID": "GUILD_ID",
+  "token": "CLIENT_TOKEN", // This is the client's secret token
+  "docenteRoleID": "TEACHER_ROLE_ID", // This is the ID of the docente role
+  "mitosisVoiceChannelID": "DONOR_VOICE_CHANNEL_ID", // This is the ID of the donor voice channel
+  "mitosisCategoryID": "DONOR_CATEGORY_CHANNEL_ID", // This is the ID of the category that contains the donor voice channel
+  "teachersQueryChannelID": "TEACHER_TEXT_CHANNEL_ID", // This is the ID of the text channel when you want to have the query queue page for the teachers
+  "studentsQueryChannelID": "STUDENT_TEXT_CHANNEL_ID" // This is the ID of the text channel when you want to have the query queue page for the students
 }
 
 ```
