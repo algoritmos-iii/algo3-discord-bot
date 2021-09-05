@@ -7,7 +7,7 @@ import json
 
 def write_json(on: str, data: dict):
     with open(on, "w") as outfile:
-        json.dump(data, outfile, indent=4)
+        json.dump([{"name": name, "url": url} for name, url in data.items()], outfile, indent=4)
 
 
 def rebuild_links(concrete_links_peaces: list) -> list:
