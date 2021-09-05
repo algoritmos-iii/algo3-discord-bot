@@ -3,7 +3,6 @@ import {
     Client,
     Intents,
     Collection,
-    GuildMember,
     Channel,
     VoiceChannel,
     MessageEmbed,
@@ -18,6 +17,7 @@ import { Button } from '../interfaces/Button';
 import path from 'path';
 import fs from 'fs';
 import { queryQueuePage } from '../interfaces/DinamicPage';
+import { QueryQueue } from '../components/QueryQueue';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -26,7 +26,7 @@ class Bot extends Client {
     public buttons: Collection<string, Button> = new Collection();
     public config!: Config;
     public queryQueueEmbed!: MessageEmbed;
-    public queryQueue: GuildMember[] = [];
+    public queryQueue: QueryQueue = new QueryQueue();
 
     public constructor() {
         super({
@@ -136,25 +136,8 @@ class Bot extends Client {
             this.config.studentsQueryChannelID
         ) as TextChannel;
 
-        const queryQueueData: EmbedFieldData[] = [];
-
-        for (let i = 0; i < this.queryQueue.length; i++) {
-            const member = this.queryQueue[i];
-            const group = member.roles.cache.find((role) =>
-                role.name.startsWith('Grupo')
-            );
-            if (group) {
-                queryQueueData.push({
-                    name: `#${i + 1} ${member.displayName}`,
-                    value: `${group.name}`,
-                });
-            } else {
-                queryQueueData.push({
-                    name: `#${i} ${member}`,
-                    value: `Sin grupo`,
-                });
-            }
-        }
+        const queryQueueData: EmbedFieldData[] =
+            this.queryQueue.toEmbedFieldData();
 
         this.queryQueueEmbed = new MessageEmbed()
             .setColor('#0099ff')

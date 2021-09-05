@@ -14,10 +14,7 @@ export const execute = async (interaction: ButtonInteraction) => {
         return;
     }
     if (group) {
-        const relatives = client.queryQueue.filter((member) =>
-            member.roles.cache.some((role) => role.name === group.name)
-        );
-        if (relatives.length > 0) {
+        if (client.queryQueue.hasSomeMemberOf(group)) {
             await interaction.reply({
                 content: 'Ya hay alguien de tu grupo en la cola de espera!',
                 ephemeral: true,
@@ -26,7 +23,7 @@ export const execute = async (interaction: ButtonInteraction) => {
         }
     }
     client.logger.info(interaction.user.tag, 'quiere ayuda');
-    client.queryQueue.push(member);
+    client.queryQueue.enqueue(member);
     client.updateQueryQueueEmbed();
 };
 

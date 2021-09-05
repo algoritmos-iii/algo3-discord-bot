@@ -2,14 +2,14 @@ import { MessageButton, ButtonInteraction, GuildMember } from 'discord.js';
 import { client } from '../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
-    if (client.queryQueue.length === 0) {
+    if (client.queryQueue.isEmpty()) {
         await interaction.reply({
             content: 'Nadie necesita ayuda por el momento!',
             ephemeral: true,
         });
         return;
     }
-    const consultee: GuildMember | undefined = client.queryQueue.shift();
+    const consultee: GuildMember | undefined = client.queryQueue.next();
     client.logger.info(
         interaction.user.tag,
         `va a responder a ${consultee?.user.tag}`

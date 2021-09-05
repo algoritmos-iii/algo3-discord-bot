@@ -3,7 +3,7 @@ import { client } from '../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
-    if (client.queryQueue.indexOf(member) == -1) {
+    if (!client.queryQueue.has(member)) {
         await interaction.reply({
             content: 'No estás en la cola de espera!',
             ephemeral: true,
