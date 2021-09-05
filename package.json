@@ -8,7 +8,7 @@
     "clean": "rm -rf ./dist",
     "build": "npm run clean && npm run prettify && tsc",
     "load-commands": "python3 ./scripts/bibliography_scraper.py && npm run build && node ./dist/src/deploy-commands.js",
-    "test": "tsc && tsc -w test/test.ts",
+    "test": "jest",
     "dev": "npm run clean && nodemon -e ts --exec \"npm run build && npm start\"",
     "prettify": "npx prettier --write 'src/**/*.ts'"
   },
@@ -29,10 +29,18 @@
     "discord.js": "^13.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.4",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/runtime": "^7.15.4",
     "@types/glob": "^7.1.4",
+    "@types/jest": "^27.0.1",
+    "babel-jest": "^27.1.0",
     "consola": "^2.15.3",
     "eslint": "^7.32.0",
     "glob": "^7.1.7",
+    "jest": "^27.1.0",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "tsc-node": "^0.0.3",
