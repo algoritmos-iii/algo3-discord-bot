@@ -1,19 +1,35 @@
-import { MessageButton, ButtonInteraction, GuildMember } from 'discord.js';
+import {
+    MessageButton,
+    ButtonInteraction,
+    GuildMember,
+    VoiceChannel,
+} from 'discord.js';
 import { client } from '../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
+    const member = interaction.member as GuildMember;
     if (client.queryQueue.isEmpty()) {
         await interaction.reply({
             content: 'Nadie necesita ayuda por el momento!',
             ephemeral: true,
         });
         return;
+    } else if (!member.voice.channel) {
+        await interaction.reply({
+            content:
+                'Debes estar en un canal de voz para poder atender una consulta por voz!',
+            ephemeral: true,
+        });
+        return;
     }
-    const consultee: GuildMember | undefined = client.queryQueue.next();
-    client.logger.info(
-        interaction.user.tag,
-        `va a responder a ${consultee?.user.tag}`
-    );
+    const consultee: GuildMember = client.queryQueue.next() as GuildMember;
+    if (consultee.voice.channel) {
+        member.voice.setChannel(consultee.voice.channel as VoiceChannel);
+    }
+    await interaction.reply({
+        content:
+            'El alumno que solicitó ayuda se desconectó del canal de su grupo',
+    });
     client.updateQueryQueueEmbed();
 };
 
