@@ -39,7 +39,7 @@ def get_html_from(url: str):
 
 
 def main():
-    print('Web scraping started...')
+    print('Scraping started...')
     html_page = get_html_from("https://github.com/algoritmos-iii/algoritmos-iii.github.io/tree/master/assets/bibliografia")
     soup = parse_html(html_page)
     pattern = re.compile("^/algoritmos-iii/algoritmos-iii.github.io/blob/master/assets/bibliografia/")
