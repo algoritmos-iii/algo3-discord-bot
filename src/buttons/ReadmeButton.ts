@@ -3,13 +3,13 @@ import { client } from '../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
-    const studentRole = member.guild.roles.cache.find(
-        (role) => role.id === client.config.studentRoleID
+    const validatedRole = member.guild.roles.cache.find(
+        (role) => role.id === client.config.validatedRoleID
     )!;
-    if (member.roles.cache.has(studentRole.id)) {
+    if (member.roles.cache.has(validatedRole.id)) {
         return;
     }
-    await member.roles.add(studentRole).catch(client.logger.error);
+    await member.roles.add(validatedRole).catch(client.logger.error);
     await interaction.reply({
         content: 'Gracias por leer!, cualquier duda no temas en consultar!',
         ephemeral: true,
