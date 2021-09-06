@@ -1,6 +1,6 @@
 import { MessageActionRow, MessageEmbed, TextChannel } from 'discord.js';
 
-export const queryQueuePage = async (
+export const dinamicPage = async (
     residences: TextChannel[],
     embeds: MessageEmbed[],
     components: MessageActionRow[]

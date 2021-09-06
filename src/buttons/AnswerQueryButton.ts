@@ -30,7 +30,7 @@ export const execute = async (interaction: ButtonInteraction) => {
         content:
             'El alumno que solicitó ayuda se desconectó del canal de su grupo',
     });
-    client.updateQueryQueueEmbed();
+    client.sendQueryQueueEmbed();
 };
 
 export const data = new MessageButton()

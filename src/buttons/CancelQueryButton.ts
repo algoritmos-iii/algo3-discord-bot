@@ -12,7 +12,7 @@ export const execute = async (interaction: ButtonInteraction) => {
     }
     client.logger.info(interaction.user.tag, 'ya no necesita ayuda');
     client.queryQueue.splice(client.queryQueue.indexOf(member), 1);
-    client.updateQueryQueueEmbed();
+    client.sendQueryQueueEmbed();
 };
 
 export const data = new MessageButton()

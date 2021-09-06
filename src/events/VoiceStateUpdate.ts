@@ -1,5 +1,4 @@
 // import consola from 'consola';
-import config from '../../config.json';
 import {
     Channel,
     Collection,
@@ -20,13 +19,13 @@ export const execute: ExecuteFunction = async (
 
     if (
         oldChannel &&
-        oldChannel.parentId === config.mitosisCategoryID &&
-        oldChannel.id != config.mitosisVoiceChannelID &&
+        oldChannel.parentId === client.config.mitosisCategoryID &&
+        oldChannel.id != client.config.mitosisVoiceChannelID &&
         oldChannel.members.size === 0
     ) {
         await oldChannel.delete();
     }
-    if (newChannel && newChannel!.id === config.mitosisVoiceChannelID) {
+    if (newChannel && newChannel!.id === client.config.mitosisVoiceChannelID) {
         const group = member.roles.cache.find((role) =>
             role.name.startsWith('Grupo')
         );

@@ -52,10 +52,7 @@ function addChoicesToOptions(
     return option;
 }
 
-export const data: Omit<
-    SlashCommandBuilder,
-    'addSubcommand' | 'addSubcommandGroup'
-> = new SlashCommandBuilder()
+export const data = new SlashCommandBuilder()
     .setName('papers')
     .setDescription('Send you a link')
     .addStringOption((option) =>
