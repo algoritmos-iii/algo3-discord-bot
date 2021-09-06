@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Event';
 import { client } from '../index';
 const wait = require('util').promisify(setTimeout);
@@ -31,6 +31,15 @@ export const execute: ExecuteFunction = async (message: Message) => {
         message.member!.id !== client.config.clientID
     ) {
         deleteMessageAndReply(message, 'No se puede escribir en este canal!');
+    } else if (message.webhookId === client.config.githubWebhookID) {
+        const webhook = await message.fetchWebhook();
+        const webhookMessageEmbed = (await webhook.fetchMessage(message.id))
+            .embeds as MessageEmbed[];
+        webhook.editMessage(message, {
+            content:
+                '**Ya está disponible el enunciado del ejercicio de esta semana!**',
+            embeds: webhookMessageEmbed,
+        });
     }
 };
 
