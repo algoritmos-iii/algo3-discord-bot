@@ -16,7 +16,7 @@ import { Event } from '../interfaces/Event';
 import { Button } from '../interfaces/Button';
 import path from 'path';
 import fs from 'fs';
-import { queryQueuePage } from '../interfaces/DinamicPage';
+import { dinamicPage } from '../interfaces/DinamicPage';
 import { QueryQueue } from '../components/QueryQueue';
 
 class Bot extends Client {
@@ -26,6 +26,7 @@ class Bot extends Client {
     public buttons: Collection<string, Button> = new Collection();
     public config!: Config;
     public queryQueueEmbed!: MessageEmbed;
+    public readmeEmbed!: MessageEmbed;
     public queryQueue: QueryQueue = new QueryQueue();
 
     public constructor() {
@@ -35,6 +36,7 @@ class Bot extends Client {
                 Intents.FLAGS.GUILD_MESSAGES,
                 Intents.FLAGS.GUILD_MEMBERS,
                 Intents.FLAGS.GUILD_VOICE_STATES,
+                Intents.FLAGS.GUILD_WEBHOOKS,
             ],
         });
     }
@@ -53,7 +55,8 @@ class Bot extends Client {
             .filter((file) => file.endsWith('.js'));
 
         for (const file of commandFiles) {
-            const command = require(`../commands/${file}`);
+            const command: Command = require(`../commands/${file}`);
+            this.logger.log(command.data.name);
             this.commands.set(command.data.name, command);
         }
     }
@@ -127,7 +130,7 @@ class Bot extends Client {
         );
     }
 
-    public async updateQueryQueueEmbed() {
+    public async sendQueryQueueEmbed() {
         const teachersQueryChannel: TextChannel = this.channels.cache.get(
             this.config.teachersQueryChannelID
         ) as TextChannel;
@@ -145,7 +148,7 @@ class Bot extends Client {
             .setDescription('')
             .addFields(queryQueueData);
 
-        await queryQueuePage(
+        await dinamicPage(
             [teachersQueryChannel],
             [this.queryQueueEmbed],
             [
@@ -155,13 +158,60 @@ class Bot extends Client {
             ]
         );
 
-        await queryQueuePage(
+        await dinamicPage(
             [studentsQueryChannel],
             [this.queryQueueEmbed],
             [
                 new MessageActionRow().addComponents(
                     this.buttons.get('queue')!.data,
                     this.buttons.get('out')!.data
+                ),
+            ]
+        );
+    }
+
+    public async sendReadmeEmbedMessage() {
+        const readmeChannel = this.channels.cache.get(
+            this.config.readmeTextChannelID
+        ) as TextChannel;
+
+        this.readmeEmbed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Algoritmos y Programación III - Cátedra Leveroni')
+            .setURL('https://algoritmos-iii.github.io/')
+            .addFields(
+                {
+                    name: 'Buenas! Bienvenides al servidor de discord',
+                    value: 'En este servidor van a poder encontrar info sobre la cursada y hacer consultas diréctamente a los docentes, cualquier cosa que necesiten no duden en preguntar!',
+                },
+                {
+                    name: '\u200B',
+                    value: 'Por favor les pedimos que pongan su nombre y apellido reales para saber quienes son y poder buscarlos en la lista. Para cambiar el nombre que aparece en este servidor simplemente deben hacer click derecho en su nombre en la lista de personas conectadas y hacer click en "Change Nickname"/"Cambiar Apodo". Este cambio solo afectara el nombre mostrado en este servidor por lo que si están afiliados a otros servidores de Discord no se cambiara su nombre de usuario en los mismos. Alternativamente en escritorio o para los que esten desde celular (Android, ni idea si es igual en iOS), pueden hacer click en las opciones del servidor (Arriba a la izquierda, la flechita para abajo o los tres puntos) y ahi tambien pueden tocar Cambiar Apodo/Change Nickname',
+                },
+                { name: '\u200B', value: '\u200B' },
+                {
+                    name: 'Página de la materia',
+                    value: 'https://algoritmos-iii.github.io/',
+                    inline: true,
+                },
+                {
+                    name: 'Lista de mails',
+                    value: 'fiuba-algoritmos-iii@googlegroups.com',
+                    inline: true,
+                },
+                {
+                    name: 'Lista de mails docentes',
+                    value: 'fiuba-algoritmos-iii-doc@googlegroups.com',
+                    inline: true,
+                }
+            );
+
+        await dinamicPage(
+            [readmeChannel],
+            [this.readmeEmbed],
+            [
+                new MessageActionRow().addComponents(
+                    this.buttons.get('readme')!.data
                 ),
             ]
         );

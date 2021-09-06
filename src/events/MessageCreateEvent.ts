@@ -26,6 +26,11 @@ export const execute: ExecuteFunction = async (message: Message) => {
             message.channelId === client.config.teachersQueryChannelID)
     ) {
         deleteMessageAndReply(message, 'No se puede escribir en este canal!');
+    } else if (
+        message.channelId === client.config.readmeTextChannelID &&
+        message.member!.id !== client.config.clientID
+    ) {
+        deleteMessageAndReply(message, 'No se puede escribir en este canal!');
     }
 };
 

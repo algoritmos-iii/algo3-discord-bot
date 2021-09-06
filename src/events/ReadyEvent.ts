@@ -4,7 +4,8 @@ import { ExecuteFunction } from '../interfaces/Event';
 export const execute: ExecuteFunction = async (client: AlgoBot) => {
     client.logger.success(`Ready! Logged in as ${client.user!.tag}`);
     client.removeUnusedClonedChannels();
-    client.updateQueryQueueEmbed();
+    client.sendQueryQueueEmbed();
+    client.sendReadmeEmbedMessage();
 };
 
 export const name: string = 'ready';
