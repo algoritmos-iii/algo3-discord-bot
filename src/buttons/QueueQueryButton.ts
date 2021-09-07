@@ -33,7 +33,8 @@ export const execute = async (interaction: ButtonInteraction) => {
         }
     }
     client.queryQueue.enqueue(member);
-    client.sendQueryQueueEmbed();
+    client.sendStudentsQueryQueueEmbed();
+    client.sendTeachersQueryQueueEmbed();
 };
 
 export const data = new MessageButton()

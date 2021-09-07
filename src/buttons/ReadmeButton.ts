@@ -4,7 +4,7 @@ import { client } from '../index';
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
     const validatedRole = member.guild.roles.cache.find(
-        (role) => role.id === client.config.validatedRoleID
+        (role) => role.id === client.config.studentRoleID
     )!;
     if (member.roles.cache.has(validatedRole.id)) {
         return;
@@ -18,5 +18,5 @@ export const execute = async (interaction: ButtonInteraction) => {
 
 export const data = new MessageButton()
     .setCustomId('readme')
-    .setLabel('Juro solemnemente que leí este mensaje')
+    .setLabel('Juro solemnemente haber leído este mensaje')
     .setStyle('SUCCESS');

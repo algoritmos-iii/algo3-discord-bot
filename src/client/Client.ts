@@ -16,8 +16,8 @@ import { Event } from '../interfaces/Event';
 import { Button } from '../interfaces/Button';
 import path from 'path';
 import fs from 'fs';
-import { dinamicPage } from '../interfaces/DinamicPage';
 import { QueryQueue } from '../components/QueryQueue';
+import * as papers from '../../assets/bibliography_links.json';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -56,7 +56,6 @@ class Bot extends Client {
 
         for (const file of commandFiles) {
             const command: Command = require(`../commands/${file}`);
-            this.logger.log(command.data.name);
             this.commands.set(command.data.name, command);
         }
     }
@@ -130,11 +129,7 @@ class Bot extends Client {
         );
     }
 
-    public async sendQueryQueueEmbed() {
-        const teachersQueryChannel: TextChannel = this.channels.cache.get(
-            this.config.teachersQueryChannelID
-        ) as TextChannel;
-
+    public async sendStudentsQueryQueueEmbed() {
         const studentsQueryChannel: TextChannel = this.channels.cache.get(
             this.config.studentsQueryChannelID
         ) as TextChannel;
@@ -148,26 +143,66 @@ class Bot extends Client {
             .setDescription('')
             .addFields(queryQueueData);
 
-        await dinamicPage(
-            [teachersQueryChannel],
-            [this.queryQueueEmbed],
-            [
-                new MessageActionRow().addComponents(
-                    this.buttons.get('dequeue')!.data
-                ),
-            ]
-        );
+        const previousMessages = await studentsQueryChannel.messages.fetch();
 
-        await dinamicPage(
-            [studentsQueryChannel],
-            [this.queryQueueEmbed],
-            [
-                new MessageActionRow().addComponents(
-                    this.buttons.get('queue')!.data,
-                    this.buttons.get('out')!.data
-                ),
-            ]
-        );
+        if (previousMessages.size != 0) {
+            await previousMessages.first()!.edit({
+                embeds: [this.queryQueueEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('queue')!.data,
+                        this.buttons.get('out')!.data
+                    ),
+                ],
+            });
+        } else {
+            await studentsQueryChannel.send({
+                embeds: [this.queryQueueEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('queue')!.data,
+                        this.buttons.get('out')!.data
+                    ),
+                ],
+            });
+        }
+    }
+
+    public async sendTeachersQueryQueueEmbed() {
+        const teachersQueryChannel: TextChannel = this.channels.cache.get(
+            this.config.teachersQueryChannelID
+        ) as TextChannel;
+
+        const queryQueueData: EmbedFieldData[] =
+            this.queryQueue.toEmbedFieldData();
+
+        this.queryQueueEmbed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Cola de espera de consultas')
+            .setDescription('')
+            .addFields(queryQueueData);
+
+        const previousMessages = await teachersQueryChannel.messages.fetch();
+
+        if (previousMessages.size != 0) {
+            await previousMessages.first()!.edit({
+                embeds: [this.queryQueueEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('dequeue')!.data
+                    ),
+                ],
+            });
+        } else {
+            await teachersQueryChannel.send({
+                embeds: [this.queryQueueEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('dequeue')!.data
+                    ),
+                ],
+            });
+        }
     }
 
     public async sendReadmeEmbedMessage() {
@@ -206,15 +241,91 @@ class Bot extends Client {
                 }
             );
 
-        await dinamicPage(
-            [readmeChannel],
-            [this.readmeEmbed],
-            [
-                new MessageActionRow().addComponents(
-                    this.buttons.get('readme')!.data
-                ),
-            ]
-        );
+        const previousMessages = await readmeChannel.messages.fetch();
+
+        if (previousMessages.size != 0) {
+            await previousMessages.first()!.edit({
+                embeds: [this.readmeEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('readme')!.data
+                    ),
+                ],
+            });
+        } else {
+            await readmeChannel.send({
+                embeds: [this.readmeEmbed],
+                components: [
+                    new MessageActionRow().addComponents(
+                        this.buttons.get('readme')!.data
+                    ),
+                ],
+            });
+        }
+    }
+
+    public async sendValidationHelpEmbedMessage() {
+        const validationChannel = this.channels.cache.get(
+            this.config.validationTextChannelID
+        ) as TextChannel;
+
+        const validationHelpEmbed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Validación!')
+            .setDescription(
+                'Usá el comando `/verificar` e ingresá los datos para validar tu identidad'
+            );
+
+        const previousMessages = await validationChannel.messages.fetch();
+
+        if (previousMessages.size != 0) {
+            await previousMessages.first()!.edit({
+                embeds: [validationHelpEmbed],
+            });
+        } else {
+            await validationChannel.send({
+                embeds: [validationHelpEmbed],
+            });
+        }
+    }
+
+    public async sendPapersEmbedMessage() {
+        const papersChannel = this.channels.cache.get(
+            this.config.papersTextChannelID
+        ) as TextChannel;
+
+        const papersEmbed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Lista de lecturas')
+            .addFields(this.paperLinksFields());
+
+        const previousMessages = await papersChannel.messages.fetch();
+
+        if (previousMessages.size != 0) {
+            await previousMessages.first()!.edit({
+                embeds: [papersEmbed],
+            });
+        } else {
+            await papersChannel.send({
+                embeds: [papersEmbed],
+            });
+        }
+    }
+
+    private paperLinksFields(): EmbedFieldData[] {
+        const papersFields: EmbedFieldData[] = [];
+
+        for (const i in papers) {
+            const paper = papers[i];
+            if (i != 'default') {
+                papersFields.push({
+                    name: '\u200B',
+                    value: `[${paper.name}](${paper.url})`,
+                });
+            }
+        }
+
+        return papersFields;
     }
 }
 

@@ -1,6 +1,4 @@
 export interface Config {
-    validatedRoleID: string;
-    readmeTextChannelID: string;
     clientID: string;
     token: string;
     teacherRoleID: string;
@@ -12,4 +10,8 @@ export interface Config {
     onlyThreadsTextChannelsIDs: string[];
     exercisesRepositoryURL: string;
     githubWebhookID: string;
+    papersTextChannelID: string;
+    validationTextChannelID: string;
+    validatedRoleID: string;
+    readmeTextChannelID: string;
 }
