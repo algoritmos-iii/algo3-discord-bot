@@ -1,5 +1,5 @@
 import { ButtonInteraction, GuildMember, MessageButton } from 'discord.js';
-import { client } from '../index';
+import { client } from '../../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
@@ -10,10 +10,11 @@ export const execute = async (interaction: ButtonInteraction) => {
         });
         return;
     }
-    client.logger.info(interaction.user.tag, 'ya no necesita ayuda');
     client.queryQueue.splice(client.queryQueue.indexOf(member), 1);
-    client.sendStudentsQueryQueueEmbed();
-    client.sendTeachersQueryQueueEmbed();
+    await interaction.reply({
+        content: 'Has sido removido de la cola de espera!',
+        ephemeral: true,
+    });
 };
 
 export const data = new MessageButton()

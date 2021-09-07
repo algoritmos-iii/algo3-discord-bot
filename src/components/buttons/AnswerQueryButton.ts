@@ -4,7 +4,7 @@ import {
     GuildMember,
     VoiceChannel,
 } from 'discord.js';
-import { client } from '../index';
+import { client } from '../../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
@@ -25,13 +25,17 @@ export const execute = async (interaction: ButtonInteraction) => {
     const consultee: GuildMember = client.queryQueue.next() as GuildMember;
     if (consultee.voice.channel) {
         member.voice.setChannel(consultee.voice.channel as VoiceChannel);
+    } else {
+        await interaction.reply({
+            content:
+                'El alumno que solicitó ayuda se desconectó del canal de su grupo',
+            ephemeral: true,
+        });
     }
     await interaction.reply({
-        content:
-            'El alumno que solicitó ayuda se desconectó del canal de su grupo',
+        content: `Estás atendiendo a ${consultee.displayName}`,
+        ephemeral: true,
     });
-    client.sendStudentsQueryQueueEmbed();
-    client.sendTeachersQueryQueueEmbed();
 };
 
 export const data = new MessageButton()

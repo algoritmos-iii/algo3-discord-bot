@@ -1,5 +1,5 @@
 import { ButtonInteraction, GuildMember, MessageButton } from 'discord.js';
-import { client } from '../index';
+import { client } from '../../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
     const member = interaction.member as GuildMember;
