@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember } from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Command';
 import * as students from '../../assets/students.json';
-import { client } from '../index';
+import * as config from '../../devConfig.json';
 
 function emailIsValid(email: string) {
     const re =
@@ -48,15 +48,15 @@ export const execute: ExecuteFunction = async (
     await interaction.editReply('Validación exitosa!');
     const member = interaction.member as GuildMember;
     const studentRole = member.guild.roles.cache.find(
-        (role) => role.id === client.config.studentRoleID
+        (role) => role.id === config.studentRoleID
     )!;
     if (member.roles.cache.has(studentRole.id)) {
         return;
     }
-    await member.roles.add(studentRole).catch(client.logger.error);
+    await member.roles.add(studentRole);
 
     const validatedRole = member.guild.roles.cache.find(
-        (role) => role.id === client.config.validatedRoleID
+        (role) => role.id === config.validatedRoleID
     )!;
     await member.roles.remove(validatedRole);
 };
@@ -65,14 +65,8 @@ export const data = new SlashCommandBuilder()
     .setName('verificar')
     .setDescription('Verifica que efectivamente sea alumno de la cátedra')
     .addStringOption((option) =>
-        option
-            .setName('email')
-            .setDescription('email')
-            .setRequired(true)
+        option.setName('email').setDescription('email').setRequired(true)
     )
     .addStringOption((option) =>
-        option
-            .setName('padrón')
-            .setDescription('padron')
-            .setRequired(true)
+        option.setName('padrón').setDescription('padron').setRequired(true)
     );
