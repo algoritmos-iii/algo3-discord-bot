@@ -1,4 +1,5 @@
 import { EmbedFieldData, GuildMember, Role } from 'discord.js';
+import { EmbedPage } from './EmbedPage';
 
 export class QueryQueue {
     queue: GuildMember[];
@@ -15,20 +16,20 @@ export class QueryQueue {
     }
 
     public next(): GuildMember | undefined {
-        return this.queue.shift();
+        const next = this.queue.shift();
+        this.notify();
+        return next;
     }
 
     private notify(): void {
-        this.observers.forEach((observer) =>
-            observer.onUpdateChange(this.queue)
-        );
+        this.observers.forEach((observer) => observer.onUpdate(this));
     }
 
     public isEmpty(): boolean {
         return this.queue.length === 0;
     }
 
-    public addObserver(observer: any): void {
+    public addObserver(observer: EmbedPage): void {
         this.observers.push(observer);
     }
 
