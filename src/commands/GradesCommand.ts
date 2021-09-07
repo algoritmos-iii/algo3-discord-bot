@@ -63,7 +63,7 @@ export const execute: ExecuteFunction = async (
             'Datos ingresados inválidos (revisá que estén bien escritos y recordá que tenés que utilizar los mismos usaste para llenar el forms)'
         );
     }
- 
+
     // await interaction.editReply(
     //     'En breve se te enviará un mail con el link para que puedas acceder a tus notas'
     // );
