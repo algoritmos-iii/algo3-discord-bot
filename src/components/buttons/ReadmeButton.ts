@@ -7,13 +7,17 @@ export const execute = async (interaction: ButtonInteraction) => {
         (role) => role.id === client.config.studentRoleID
     )!;
     if (member.roles.cache.has(validatedRole.id)) {
-        return;
+        await interaction.reply({
+            content: 'Ya registraste tu juramento!',
+            ephemeral: true,
+        });
+    } else {
+        await member.roles.add(validatedRole).catch(client.logger.error);
+        await interaction.reply({
+            content: 'Gracias por leer!, cualquier duda no temas en consultar!',
+            ephemeral: true,
+        });
     }
-    await member.roles.add(validatedRole).catch(client.logger.error);
-    await interaction.reply({
-        content: 'Gracias por leer!, cualquier duda no temas en consultar!',
-        ephemeral: true,
-    });
 };
 
 export const data = new MessageButton()

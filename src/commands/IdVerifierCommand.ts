@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember } from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Command';
 import * as students from '../../assets/students.json';
-import * as config from '../../devConfig.json';
+import * as config from '../../config.json';
 
 function emailIsValid(email: string) {
     const re =
@@ -31,6 +31,7 @@ export const execute: ExecuteFunction = async (
 ): Promise<void> => {
     const email = interaction.options.data[0].value as string;
     const padron = interaction.options.data[1].value as string;
+    const member = interaction.member as GuildMember;
 
     await interaction.deferReply({ ephemeral: true });
 
@@ -40,13 +41,12 @@ export const execute: ExecuteFunction = async (
         !validate(email, padron)
     ) {
         await interaction.editReply(
-            'Datos ingresados inválidos (revisá que estén bien escritos y recordá que tenés que utilizar los mismos usaste para llenar el forms)'
+            'Datos ingresados inválidos (revisá que estén bien escritos y recordá que tenés que utilizar los mismos usaste para llenar el forms). *Si llevás varios intentos, consultá con un docente...*'
         );
         return;
     }
 
     await interaction.editReply('Validación exitosa!');
-    const member = interaction.member as GuildMember;
     const studentRole = member.guild.roles.cache.find(
         (role) => role.id === config.studentRoleID
     )!;
