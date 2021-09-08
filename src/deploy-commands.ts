@@ -1,7 +1,6 @@
 import { REST } from '@discordjs/rest';
 import { APIApplicationCommandOption, Routes } from 'discord-api-types/v9';
-// import { clientID, token } from '../devConfig.json';
-import { clientID, token } from '../config.json';
+import { clientID, token, guildID } from '../config.json';
 import { Command } from './interfaces/Command';
 
 import fs from 'fs';
@@ -31,8 +30,8 @@ const rest = new REST({ version: '9' }).setToken(token);
         consola.info('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands(clientID), // For global commands
-            // Routes.applicationGuildCommands(clientID, guildID),
+            // Routes.applicationCommands(clientID), // For global commands
+            Routes.applicationGuildCommands(clientID, guildID),
             { body: commands }
         );
 
