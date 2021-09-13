@@ -1,12 +1,12 @@
 import { REST } from '@discordjs/rest';
 import { APIApplicationCommandOption, Routes } from 'discord-api-types/v9';
-// import { clientID, token } from '../devConfig.json';
-import { clientID, token } from '../config.json';
 import { Command } from './interfaces/Command';
-
 import fs from 'fs';
 import path from 'path';
 import consola from 'consola';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const commands: {
     name: string;
@@ -24,14 +24,14 @@ for (const file of commandFiles) {
     commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN as string);
 
 (async () => {
     try {
         consola.info('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands(clientID), // For global commands
+            Routes.applicationCommands(process.env.CLIENT_ID as string), // For global commands
             // Routes.applicationGuildCommands(clientID, guildID),
             { body: commands }
         );
