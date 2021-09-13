@@ -2,7 +2,6 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember } from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Command';
 import * as students from '../../assets/students.json';
-import * as config from '../../config.json';
 
 function emailIsValid(email: string) {
     const re =
@@ -48,17 +47,17 @@ export const execute: ExecuteFunction = async (
 
     await interaction.editReply('Validación exitosa!');
     const studentRole = member.guild.roles.cache.find(
-        (role) => role.id === config.studentRoleID
+        (role) => role.id === process.env.STUDENT_ROLE_ID
     )!;
     if (member.roles.cache.has(studentRole.id)) {
         return;
     }
     await member.roles.add(studentRole);
 
-    const validatedRole = member.guild.roles.cache.find(
-        (role) => role.id === config.validatedRoleID
+    const unverifiedRole = member.guild.roles.cache.find(
+        (role) => role.id === process.env.UNVERIFIED_ROLE_ID
     )!;
-    await member.roles.remove(validatedRole);
+    await member.roles.remove(unverifiedRole);
 };
 
 export const data = new SlashCommandBuilder()

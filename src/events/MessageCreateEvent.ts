@@ -12,7 +12,7 @@ async function deleteMessageAndReply(message: Message, response: string) {
 
 export const execute: ExecuteFunction = async (message: Message) => {
     if (
-        client.config.onlyThreadsTextChannelsIDs.includes(message.channelId) &&
+        client.config.onlyThreadsTextChannelsIDs == message.channelId &&
         message.type !== 'THREAD_CREATED' &&
         message.member!.id !== client.config.clientID
     ) {

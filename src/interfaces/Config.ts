@@ -7,7 +7,7 @@ export interface Config {
     mitosisCategoryID: string;
     studentsQueryChannelID: string;
     teachersQueryChannelID: string;
-    onlyThreadsTextChannelsIDs: string[];
+    onlyThreadsTextChannelsIDs: string;
     exercisesRepositoryURL: string;
     githubWebhookID: string;
     papersTextChannelID: string;
