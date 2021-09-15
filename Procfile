@@ -1,0 +1,1 @@
+worker: npm run load-commands && npm start
