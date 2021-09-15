@@ -1,6 +1,5 @@
 import { Config } from './interfaces/Config';
 import { AlgoBot } from './client/Client';
-import child_process from 'child_process';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,8 +23,6 @@ const config: Config = {
     validatedRoleID: process.env.VALIDATED_ROLE_ID as string,
     readmeTextChannelID: process.env.README_TEXT_CHANNEL_ID as string,
 };
-
-child_process.spawn('python3', ['./scripts/bibliography_scraper.py']);
 
 client.start(config);
 

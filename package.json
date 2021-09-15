@@ -7,7 +7,7 @@
     "start": "node ./dist/src/index.js",
     "load-commands": "node ./dist/src/deploy-commands.js",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && npm run prettify && tsc",
+    "build": "python3 ./scripts/bibliography_scraper.py && npm run clean && npm run prettify && tsc && npm run load-commands",
     "test": "jest",
     "dev": "npm run clean && nodemon -e ts --exec \"npm run build && npm start\"",
     "prettify": "npx prettier --write 'src/**/*.ts'"
@@ -44,15 +44,11 @@
     "@types/glob": "^7.1.4",
     "@types/jest": "^27.0.1",
     "babel-jest": "^27.1.0",
-    "consola": "^2.15.3",
-    "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "glob": "^7.1.7",
     "jest": "^27.1.0",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2",
-    "tsc-node": "^0.0.3",
-    "typescript": "^4.4.2"
+    "tsc-node": "^0.0.3"
   },
   "prettier": {
     "trailingComma": "es5",
