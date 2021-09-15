@@ -22,6 +22,8 @@ const config: Config = {
     validationTextChannelID: process.env.VALIDATION_TEXT_CHANNEL_ID as string,
     validatedRoleID: process.env.VALIDATED_ROLE_ID as string,
     readmeTextChannelID: process.env.README_TEXT_CHANNEL_ID as string,
+    devTextChannelID: process.env.DEV_TEXT_CHANNEL_ID as string,
+    devRoleID: process.env.DEV_ROLE_ID as string,
 };
 
 client.start(config);

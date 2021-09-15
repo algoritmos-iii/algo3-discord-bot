@@ -6,6 +6,7 @@ import { Event } from '../interfaces/Event';
 import { Button } from '../interfaces/Button';
 import path from 'path';
 import fs from 'fs';
+import cron from 'node-cron';
 import { QueryQueue } from '../components/models/QueryQueue';
 import { EmbedPage } from '../components/models/EmbedPage';
 import { EmbedPageInterface } from '../interfaces/EmbedPage';
@@ -107,8 +108,10 @@ class Bot extends Client {
             ) {
                 this.queryQueue.addObserver(embed.data);
             }
-            await embed.data.send();
-            this.logger.success(`Embed ${embed.data.name} sent.`);
+            if (embed.data.autoSend) {
+                await embed.data.send();
+                this.logger.success(`Embed ${embed.data.name} sent.`);
+            }
         }
 
         this.logger.success(`Sent ${this.embeds.size} embeds.`);
@@ -155,6 +158,16 @@ class Bot extends Client {
             (channel as VoiceChannel).parent!.id ==
             this.config.mitosisCategoryID
         );
+    }
+
+    public scheduleMessages() {
+        this.logger.info(`Scheduling messages...`);
+        cron.schedule('0 50 18 * 9,10,11,12 1,4', () => {
+            this.logger.info('Sending class reminder...');
+            this.embeds.get('nextClass')!.send();
+            this.logger.success('Class remainder sent.');
+        });
+        this.logger.success(`Messages scheduled.`);
     }
 }
 
