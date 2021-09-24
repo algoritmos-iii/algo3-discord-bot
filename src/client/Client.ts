@@ -164,23 +164,31 @@ class Bot extends Client {
     public scheduleMessages() {
         this.logger.info(`Scheduling messages...`);
 
-        cron.schedule('0 50 18 * 9,10,11,12 1,4', () => {
-            this.logger.info('Sending class reminder...');
-            this.embeds.get('nextClass')!.send();
-            this.logger.success('Class remainder sent.');
-        }, { timezone: 'America/Argentina/Buenos_Aires' });
+        cron.schedule(
+            '0 50 18 * 9,10,11,12 1,4',
+            () => {
+                this.logger.info('Sending class reminder...');
+                this.embeds.get('nextClass')!.send();
+                this.logger.success('Class remainder sent.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
 
-        cron.schedule('0 10 22 * 9,10,11,12 1,4', async () => {
-            this.logger.info('Loading next class event data...');
-            await this.updateNextClassData();
-            this.logger.success('Next class event data loaded.');
-        }, { timezone: 'America/Argentina/Buenos_Aires' });
-        
-        this.logger.success(`Messages scheduled.`);
+        cron.schedule(
+            '0 10 22 * 9,10,11,12 1,4',
+            async () => {
+                this.logger.info('Loading next class event data...');
+                await this.updateNextClassData();
+                this.logger.success('Next class event data loaded.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
     }
 
     private async updateNextClassData() {
-        child_process.spawn('python3', ['./scripts/next_class/main.py']);
+        child_process.spawn('python3', [
+            './submodules/next_class_info_scraper.py',
+        ]);
     }
 }
 
