@@ -7,7 +7,8 @@
     "start": "node ./dist/src/index.js",
     "load-commands": "node ./dist/src/deploy-commands.js",
     "clean": "rm -rf ./dist",
-    "build": "python3 ./scripts/bibliography_scraper.py && npm run clean && npm run prettify && tsc && npm run load-commands",
+    "python-scripts": "python3 ./scripts/bibliography_scraper.py && python3 ./submodules/next_class_info_scraper.py",
+    "build": "npm run python-scripts && npm run clean && npm run prettify && tsc && npm run load-commands",
     "test": "jest",
     "dev": "npm run clean && nodemon -e ts --exec \"npm run build && npm start\"",
     "prettify": "npx prettier --write 'src/**/*.ts'"
