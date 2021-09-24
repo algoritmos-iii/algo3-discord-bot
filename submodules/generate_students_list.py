@@ -9,15 +9,15 @@ from repositories.alumnos_repository import AlumnosRepository
 
 dotenv.load_dotenv()
 
-CALENDAR_ID = os.environ.get('CALENDAR_ID')
-SERVICE_ACCOUNT_INFO = os.environ.get('SERVICE_ACCOUNT_INFO')
+SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID')
+REFRESH_TOKEN = os.environ.get('REFRESH_TOKEN')
 
 
 def main():
-    credentials = GoogleCredentials.from_service_account(SERVICE_ACCOUNT_INFO)
-    calendar_service = APIService(service_name='calendar', api_version='v3', google_credentials=credentials)
+    credentials = GoogleCredentials.from_refresh_token(REFRESH_TOKEN)
+    calendar_service = APIService(service_name='sheets', api_version='v4', google_credentials=credentials)
 
-    alumnos = AlumnosRepository(calendar_service, CALENDAR_ID)
+    alumnos = AlumnosRepository(calendar_service, SPREADSHEET_ID)
 
     alumnos.to_json()
 
