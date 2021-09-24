@@ -1,14 +1,15 @@
 import { EmbedPage } from '../models/EmbedPage';
 import { client } from '../../index';
-import * as event from '../../../assets/nextEvent.json';
+import * as event from '../../../assets/event.json';
 
 export const data = new EmbedPage(
     client,
     false,
+    false,
     'nextClass',
     'Información de la próxima clase',
     '',
-    [client.config.readmeTextChannelID],
+    [client.config.generalTextChannelID],
     [
         {
             name: 'Link a la reunión de zoom',
@@ -22,32 +23,40 @@ export const data = new EmbedPage(
             name: 'Detalles de la clase',
             value: `Empieza el ${dateFromISO(
                 event.start.dateTime
-            )} y termina el ${dateFromISO(event.start.dateTime)}`,
+            )} y termina el ${dateFromISO(event.end.dateTime)}`,
         },
         {
             name: 'Temas',
             value: `${event.summary}`,
         },
         {
-            name: 'Lecturas, entregas',
+            name: 'Lecturas',
             value: `${
-                event.description.replace(event.summary, '').length === 1
-                    ? '-'
-                    : event.description
-                          .replace(event.summary, '')
+                event.description.includes('Paper a tener leído:')
+                    ? event.description
+                          .split('Paper a tener leído: ')[1]
                           .concat(
                               `\n*Para encontrar el link a un paper podés hacerlo desde ${client.channels.cache.get(
                                   client.config.papersTextChannelID
                               )} o en la [web de la cátedra](https://algoritmos-iii.github.io/)*`
                           )
+                    : '-'
+            }`,
+        },
+        {
+            name: 'Entregas',
+            value: `${
+                event.description.includes('Ejercicio a tener entregado:')
+                    ? event.description.split(
+                          'Ejercicio a tener entregado: '
+                      )[1]
+                    : '-'
             }`,
         },
     ],
     null,
     null,
-    `${client.guilds.cache
-        .first()
-        ?.roles.cache.get(client.config.studentRoleID)}`
+    `${client.guilds.cache.first()?.roles.cache.get(client.config.studentRoleID)}`
 );
 
 function dateFromISO(isoDate: string) {
