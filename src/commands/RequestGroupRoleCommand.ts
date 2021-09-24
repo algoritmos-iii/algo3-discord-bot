@@ -54,6 +54,14 @@ export const execute: ExecuteFunction = async (
     }
 
     const groupNumber = studentInfo[3];
+
+    if (groupNumber === "#N/A") {
+        await interaction.editReply(
+            'Todavía no tenes grupo. \n*Si esto es un error, y en realidad si tenes grupo, consultá con un docente...*'
+        );
+        return;
+    }
+
     const memberGroupRoleName = `Grupo ${groupNumber}`;
 
     if (member.roles.cache.find((role) => role.name === memberGroupRoleName)) {
