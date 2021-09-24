@@ -19,11 +19,13 @@ export class EmbedPage {
         | undefined;
     public targetChannels!: TextChannel[];
     public content: string | null;
-    public autoSend: any;
+    public autoSend: boolean;
+    public edit: boolean;
 
     constructor(
         client: AlgoBot,
         autoSend: boolean,
+        edit: boolean,
         name: string,
         title: string,
         description: string = '',
@@ -37,6 +39,7 @@ export class EmbedPage {
         this.name = name;
         this.content = content;
         this.autoSend = autoSend;
+        this.edit = edit;
         this.targetChannels = this.channelsFromIDs(targetChannelsIDs);
         this.data = this.buildData(title, description, fieldsData, url);
         this.components = this.buildComponents(buttons);
@@ -110,7 +113,7 @@ export class EmbedPage {
 
             const messageContent = this.buildMessageContent();
 
-            if (this.targetChannelIsNotEmpty(previousMessages)) {
+            if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
                 await previousMessages.first()!.edit(messageContent);
             } else {
                 await targetChannel.send(messageContent);

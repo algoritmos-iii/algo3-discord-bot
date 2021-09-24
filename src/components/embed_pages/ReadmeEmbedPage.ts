@@ -4,6 +4,7 @@ import { client } from '../../index';
 export const data = new EmbedPage(
     client,
     true,
+    true,
     'readme',
     'Algoritmos y Programación III - Cátedra Leveroni',
     'Para consultas por vos',
