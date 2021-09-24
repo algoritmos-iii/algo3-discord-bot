@@ -16,4 +16,5 @@ export interface Config {
     readmeTextChannelID: string;
     devRoleID: string;
     devTextChannelID: string;
+    generalTextChannelID: string;
 }

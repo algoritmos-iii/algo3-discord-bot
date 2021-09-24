@@ -24,6 +24,7 @@ const config: Config = {
     readmeTextChannelID: process.env.README_TEXT_CHANNEL_ID as string,
     devTextChannelID: process.env.DEV_TEXT_CHANNEL_ID as string,
     devRoleID: process.env.DEV_ROLE_ID as string,
+    generalTextChannelID: process.env.GENERAL_TEXT_CHANNEL_ID as string,
 };
 
 client.start(config);
