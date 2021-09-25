@@ -7,7 +7,7 @@ export const data = new EmbedPage(
     true,
     'teachers',
     'Cola de espera de consultas',
-    'Para consultas por vos',
+    'Si querés atender la próxima consulta, presioná el botón `Atender Próximo Grupo`, si ves que la cola de espera quedó con consultas, podés limpiarla con el botón `Limpiar',
     [client.config.teachersQueryChannelID],
     client.queryQueue.toEmbedFieldData(),
     ['dequeue']

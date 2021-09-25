@@ -68,17 +68,10 @@ export class QueryQueue {
                 const group = member.roles.cache.find((role) =>
                     role.name.startsWith('Grupo')
                 );
-                if (group) {
-                    queryQueueData.push({
-                        name: `#${i + 1} ${member.displayName}`,
-                        value: `${group.name}`,
-                    });
-                } else {
-                    queryQueueData.push({
-                        name: `#${i} ${member}`,
-                        value: `Sin grupo`,
-                    });
-                }
+                queryQueueData.push({
+                    name: `#${i + 1} ${member.displayName}`,
+                    value: `${group ? group.name : `Sin grupo`}`,
+                });
             }
         }
 
