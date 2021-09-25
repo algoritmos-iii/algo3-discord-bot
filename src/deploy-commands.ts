@@ -31,8 +31,11 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN as string);
         consola.info('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID as string), // For global commands
-            // Routes.applicationGuildCommands(clientID, guildID),
+            // Routes.applicationCommands(process.env.CLIENT_ID as string), // For global commands
+            Routes.applicationGuildCommands(
+                process.env.CLIENT_ID as string,
+                process.env.GUILD_ID as string
+            ),
             { body: commands }
         );
 
