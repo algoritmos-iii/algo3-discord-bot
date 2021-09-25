@@ -56,7 +56,9 @@ export const data = new EmbedPage(
     ],
     null,
     null,
-    `${client.guilds.cache.first()!.roles.cache.get(client.config.studentRoleID)}`
+    `${client.guilds.cache
+        .first()!
+        .roles.cache.get(client.config.studentRoleID)}`
 );
 
 function dateFromISO(isoDate: string) {
