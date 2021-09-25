@@ -1,0 +1,50 @@
+[
+    {
+        "name": "fail-fast",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/fail-fast.pdf"
+    },
+    {
+        "name": "intro-design-patterns",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/intro-design-patterns.pdf"
+    },
+    {
+        "name": "la-programacion-como-construccion-de-teoria",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/la-programacion-como-construccion-de-teoria.pdf"
+    },
+    {
+        "name": "la-psicologia-de-los-objetos-cotidianos",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/la-psicologia-de-los-objetos-cotidianos.pdf"
+    },
+    {
+        "name": "method-object",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/method-object.pdf"
+    },
+    {
+        "name": "no-silver-bullet",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/no-silver-bullet.pdf"
+    },
+    {
+        "name": "null-object-pattern",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/null-object-pattern.pdf"
+    },
+    {
+        "name": "object-recusion-pattern",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/object-recusion-pattern.pdf"
+    },
+    {
+        "name": "polymorphic-hierarchy",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/polymorphic-hierarchy.pdf"
+    },
+    {
+        "name": "programming-as-theory-building",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/programming-as-theory-building.pdf"
+    },
+    {
+        "name": "simple-technique-for-handling-multiple-polymorphism",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/simple-technique-for-handling-multiple-polymorphism.pdf"
+    },
+    {
+        "name": "the-design-of-everyday-things",
+        "url": "http://algoritmos-iii.github.io/assets/bibliografia/the-design-of-everyday-things.pdf"
+    }
+]
