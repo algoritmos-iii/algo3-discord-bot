@@ -1,3 +1,0 @@
-[submodule "submodules/api"]
-	path = submodules/api
-	url = git@github.com:algoritmos-iii/algo3-google-services.git
