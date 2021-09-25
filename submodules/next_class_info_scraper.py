@@ -4,9 +4,9 @@ from __future__ import print_function
 import os
 import json
 import dotenv
-from api.api_service import APIService
-from api.google_credentials import GoogleCredentials
-from repositories.events_repository import EventsRepository
+from .api.api_service import APIService
+from .api.google_credentials import GoogleCredentials
+from .repositories.events_repository import EventsRepository
 
 dotenv.load_dotenv()
 
@@ -23,7 +23,7 @@ def main():
 
     next_event = events.next_event()
 
-    with open('./assets/event.json', 'w') as eventsFile:
+    with open('./dist/assets/event.json', 'w') as eventsFile:
         json.dump(next_event, eventsFile, indent=4, ensure_ascii=False)
 
 main()

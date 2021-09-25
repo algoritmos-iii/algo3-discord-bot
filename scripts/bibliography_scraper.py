@@ -48,7 +48,7 @@ def main():
     hrefs = [link.get('href') for link in a_tags]
     papers_links, links_peaces = filter_papers_links(hrefs)
     name_link_dict = {links_peaces[i][-1].rstrip(".pdf"):papers_links[i] for i in range(len(papers_links))}
-    write_json(on="./assets/bibliography_links.json", data=name_link_dict)
+    write_json(on="./dist/assets/bibliography_links.json", data=name_link_dict)
 
 
 main()

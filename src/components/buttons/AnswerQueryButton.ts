@@ -24,21 +24,24 @@ export const execute = async (interaction: ButtonInteraction) => {
     }
     let consultee: GuildMember = client.queryQueue.next() as GuildMember;
     const group = consultee.roles.cache.find((role) =>
-                    role.name.startsWith('Grupo')
-                );
+        role.name.startsWith('Grupo')
+    );
     if (group) {
         let groupVoiceChannel = interaction.guild!.channels.cache.find(
-            (channel) => channel.name === group.name) as VoiceChannel;
+            (channel) => channel.name === group.name
+        ) as VoiceChannel;
 
         while (!groupVoiceChannel && !client.queryQueue.isEmpty()) {
             await interaction.reply({
-                content: 'Los alumnos del grupo que solició ayuda ya no están conectados a un canal de voz!',
+                content:
+                    'Los alumnos del grupo que solició ayuda ya no están conectados a un canal de voz!',
                 ephemeral: true,
             });
             consultee = client.queryQueue.next() as GuildMember;
             groupVoiceChannel = interaction.guild!.channels.cache.find(
-                (channel) => channel.name === group.name) as VoiceChannel;
-        } 
+                (channel) => channel.name === group.name
+            ) as VoiceChannel;
+        }
 
         if (groupVoiceChannel) {
             await consultee.voice.setChannel(groupVoiceChannel);
@@ -57,8 +60,7 @@ export const execute = async (interaction: ButtonInteraction) => {
     } else {
         while (!consultee.voice.channel && !client.queryQueue.isEmpty()) {
             await interaction.reply({
-                content:
-                `${consultee.displayName} se desconectó del canal de voz`,
+                content: `${consultee.displayName} se desconectó del canal de voz`,
                 ephemeral: true,
             });
             consultee = client.queryQueue.next() as GuildMember;

@@ -17,6 +17,9 @@ wtforms = "~=2.3"
 email-validator = "~=1.1"
 python-dotenv = "*"
 gunicorn = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
 
 [dev-packages]
 python-dotenv = "*"

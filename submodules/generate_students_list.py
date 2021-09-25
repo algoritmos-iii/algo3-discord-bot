@@ -3,9 +3,9 @@ from __future__ import print_function
 
 import os
 import dotenv
-from api.api_service import APIService
-from api.google_credentials import GoogleCredentials
-from repositories.alumnos_repository import AlumnosRepository
+from .api.api_service import APIService
+from .api.google_credentials import GoogleCredentials
+from .repositories.alumnos_repository import AlumnosRepository
 
 dotenv.load_dotenv()
 
@@ -19,6 +19,6 @@ def main():
 
     alumnos = AlumnosRepository(calendar_service, SPREADSHEET_ID)
 
-    alumnos.to_json()
+    alumnos.to_json('./dist/assets')
 
 main()

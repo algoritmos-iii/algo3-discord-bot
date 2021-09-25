@@ -1,6 +1,6 @@
 import datetime
 from typing import Any, Dict
-from api.api_service import APIService
+from ..api.api_service import APIService
 
 
 class EventsRepository:
