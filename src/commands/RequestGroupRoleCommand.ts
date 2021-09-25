@@ -72,7 +72,7 @@ export const execute: ExecuteFunction = async (
     }
 
     let groupRole = member.guild.roles.cache.find(
-        (role) => role.id === memberGroupRoleName
+        (role) => role.name === memberGroupRoleName
     )!;
 
     if (groupRole) {
