@@ -1,0 +1,33 @@
+{
+    "kind": "calendar#event",
+    "etag": "\"3264389914916000\"",
+    "id": "1bftn9oj6rv82c247b2cgl0tj4",
+    "status": "confirmed",
+    "htmlLink": "",
+    "created": "2021-09-10T04:03:51.000Z",
+    "updated": "2021-09-21T03:29:17.458Z",
+    "summary": "Yendo bien meta (puesta en común)",
+    "description": "Yendo bien meta (puesta en común)\nEjercicio Intro Modelado con Prototipos (Saga Parte II)\nPaper No Silver Bullet\nPaper a tener leído: No Silver Bullet\n",
+    "creator": {
+        "email": ""
+    },
+    "organizer": {
+        "email": "tl4alg54tm6ricmvg8a7sp4rto@group.calendar.google.com",
+        "displayName": "Algoritmos III - Cronograma",
+        "self": true
+    },
+    "start": {
+        "dateTime": "2021-09-27T19:00:00-03:00",
+        "timeZone": "America/Argentina/Buenos_Aires"
+    },
+    "end": {
+        "dateTime": "2021-09-27T22:00:00-03:00",
+        "timeZone": "America/Argentina/Buenos_Aires"
+    },
+    "iCalUID": "1bftn9oj6rv82c247b2cgl0tj4@google.com",
+    "sequence": 0,
+    "reminders": {
+        "useDefault": true
+    },
+    "eventType": "default"
+}
