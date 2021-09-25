@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import json
-from api.api_service import APIService
+from ..api.api_service import APIService
 
 
 class AlumnosRepository:
@@ -19,12 +19,12 @@ class AlumnosRepository:
 
     def to_tsv(self):
         sheet = self.__get_sheet()
-        with open(f'{self.SHEET_ALUMNOS}.tsv', 'w') as file:
+        with open(f'./assets/{self.SHEET_ALUMNOS}.tsv', 'w') as file:
             for row in sheet.get('values', []):
                 # TODO: refactorizar 
                 file.write('\t'.join(list(map(lambda value: value.rstrip('\n'), row))) + '\n')
 
     def to_json(self):
         sheet = self.__get_sheet()
-        with open(f'{self.SHEET_ALUMNOS}.json', 'w') as file:
+        with open(f'./assets/{self.SHEET_ALUMNOS}.json', 'w') as file:
             json.dump(sheet.get('values', []), file, indent=4, ensure_ascii=False)

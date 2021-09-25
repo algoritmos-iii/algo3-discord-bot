@@ -4,9 +4,9 @@ from __future__ import print_function
 import os
 import json
 import dotenv
-from api.api_service import APIService
-from api.google_credentials import GoogleCredentials
-from repositories.events_repository import EventsRepository
+from .api.api_service import APIService
+from .api.google_credentials import GoogleCredentials
+from .repositories.events_repository import EventsRepository
 
 dotenv.load_dotenv()
 

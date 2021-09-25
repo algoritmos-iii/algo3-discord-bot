@@ -3,9 +3,9 @@ from __future__ import print_function
 
 import os
 import dotenv
-from api.api_service import APIService
-from api.google_credentials import GoogleCredentials
-from repositories.alumnos_repository import AlumnosRepository
+from .api.api_service import APIService
+from .api.google_credentials import GoogleCredentials
+from .repositories.alumnos_repository import AlumnosRepository
 
 dotenv.load_dotenv()
 
