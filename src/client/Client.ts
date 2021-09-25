@@ -4,11 +4,13 @@ import { Config } from '../interfaces/Config';
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
 import { Button } from '../interfaces/Button';
-import path from 'path';
-import fs from 'fs';
 import { QueryQueue } from '../components/models/QueryQueue';
 import { EmbedPage } from '../components/models/EmbedPage';
 import { EmbedPageInterface } from '../interfaces/EmbedPage';
+import path from 'path';
+import fs from 'fs';
+import cron from 'node-cron';
+import child_process from 'child_process';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -107,8 +109,10 @@ class Bot extends Client {
             ) {
                 this.queryQueue.addObserver(embed.data);
             }
-            await embed.data.send();
-            this.logger.success(`Embed ${embed.data.name} sent.`);
+            if (embed.data.autoSend) {
+                await embed.data.send();
+                this.logger.success(`Embed ${embed.data.name} sent.`);
+            }
         }
 
         this.logger.success(`Sent ${this.embeds.size} embeds.`);
@@ -155,6 +159,36 @@ class Bot extends Client {
             (channel as VoiceChannel).parent!.id ==
             this.config.mitosisCategoryID
         );
+    }
+
+    public scheduleMessages() {
+        this.logger.info(`Scheduling messages...`);
+
+        cron.schedule(
+            '0 50 18 * 9,10,11,12 1,4',
+            () => {
+                this.logger.info('Sending class reminder...');
+                this.embeds.get('nextClass')!.send();
+                this.logger.success('Class remainder sent.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
+
+        cron.schedule(
+            '0 10 22 * 9,10,11,12 1,4',
+            async () => {
+                this.logger.info('Loading next class event data...');
+                await this.updateNextClassData();
+                this.logger.success('Next class event data loaded.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
+    }
+
+    private async updateNextClassData() {
+        child_process.spawn('python3', [
+            './submodules/next_class_info_scraper.py',
+        ]);
     }
 }
 

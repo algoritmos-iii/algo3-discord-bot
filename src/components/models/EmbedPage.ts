@@ -18,19 +18,28 @@ export class EmbedPage {
         | (MessageActionRow | MessageActionRowOptions)[]
         | undefined;
     public targetChannels!: TextChannel[];
+    public content: string | null;
+    public autoSend: boolean;
+    public edit: boolean;
 
     constructor(
         client: AlgoBot,
+        autoSend: boolean,
+        edit: boolean,
         name: string,
         title: string,
         description: string = '',
         targetChannelsIDs: string[],
         fieldsData: EmbedFieldData[] | null = null,
         buttons: string[] | null = null,
-        url: string | null = null
+        url: string | null = null,
+        content: string | null = null
     ) {
         this.client = client;
         this.name = name;
+        this.content = content;
+        this.autoSend = autoSend;
+        this.edit = edit;
         this.targetChannels = this.channelsFromIDs(targetChannelsIDs);
         this.data = this.buildData(title, description, fieldsData, url);
         this.components = this.buildComponents(buttons);
@@ -81,6 +90,17 @@ export class EmbedPage {
                 embeds: [this.data],
                 components: this.components,
             };
+        } else if (this.content) {
+            return {
+                embeds: [this.data],
+                content: this.content,
+            };
+        } else if (this.content && this.components) {
+            return {
+                embeds: [this.data],
+                content: this.content,
+                components: this.components,
+            };
         }
         return {
             embeds: [this.data],
@@ -93,7 +113,7 @@ export class EmbedPage {
 
             const messageContent = this.buildMessageContent();
 
-            if (this.targetChannelIsNotEmpty(previousMessages)) {
+            if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
                 await previousMessages.first()!.edit(messageContent);
             } else {
                 await targetChannel.send(messageContent);

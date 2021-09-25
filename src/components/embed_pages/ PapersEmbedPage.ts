@@ -5,6 +5,8 @@ import { EmbedFieldData } from 'discord.js';
 
 export const data = new EmbedPage(
     client,
+    true,
+    true,
     'papers',
     'Lista de lecturas obligatorias',
     'Links a papers',

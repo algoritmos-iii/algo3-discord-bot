@@ -14,4 +14,7 @@ export interface Config {
     validationTextChannelID: string;
     validatedRoleID: string;
     readmeTextChannelID: string;
+    devRoleID: string;
+    devTextChannelID: string;
+    generalTextChannelID: string;
 }

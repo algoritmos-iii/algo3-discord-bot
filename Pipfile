@@ -5,8 +5,21 @@ name = "pypi"
 
 [packages]
 beautifulsoup4 = "*"
+requests = "==2.26.*"
+google-auth = "==1.34.*"
+gspread = "==4.0.*"
+httplib2 = "==0.17.*"
+oauth2client = "~=4.1"
+webargs = "~=5.0"
+flask = "~=1.1"
+flask-wtf = "==0.14.*"
+wtforms = "~=2.3"
+email-validator = "~=1.1"
+python-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
