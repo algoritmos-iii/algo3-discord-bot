@@ -19,6 +19,6 @@ def main():
 
     alumnos = AlumnosRepository(calendar_service, SPREADSHEET_ID)
 
-    alumnos.to_json()
+    alumnos.to_json('./dist/assets')
 
 main()

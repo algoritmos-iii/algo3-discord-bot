@@ -23,7 +23,7 @@ def main():
 
     next_event = events.next_event()
 
-    with open('./assets/event.json', 'w') as eventsFile:
+    with open('./dist/assets/event.json', 'w') as eventsFile:
         json.dump(next_event, eventsFile, indent=4, ensure_ascii=False)
 
 main()

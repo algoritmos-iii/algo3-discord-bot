@@ -17,14 +17,14 @@ class AlumnosRepository:
 
         return response
 
-    def to_tsv(self):
+    def to_tsv(self, targetPath: str):
         sheet = self.__get_sheet()
-        with open(f'./assets/{self.SHEET_ALUMNOS}.tsv', 'w') as file:
+        with open(f'{targetPath}/{self.SHEET_ALUMNOS}.tsv', 'w') as file:
             for row in sheet.get('values', []):
                 # TODO: refactorizar 
                 file.write('\t'.join(list(map(lambda value: value.rstrip('\n'), row))) + '\n')
 
-    def to_json(self):
+    def to_json(self, targetPath: str):
         sheet = self.__get_sheet()
-        with open(f'./assets/{self.SHEET_ALUMNOS}.json', 'w') as file:
+        with open(f'{targetPath}/{self.SHEET_ALUMNOS}.json', 'w') as file:
             json.dump(sheet.get('values', []), file, indent=4, ensure_ascii=False)
