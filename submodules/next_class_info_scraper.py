@@ -13,10 +13,12 @@ dotenv.load_dotenv()
 CALENDAR_ID = os.environ.get('CALENDAR_ID')
 SERVICE_ACCOUNT_INFO = os.environ.get('SERVICE_ACCOUNT_INFO')
 
+SERVICE_NAME = 'calendar'
+API_VERSION = 'v3'
 
 def main():
     credentials = GoogleCredentials.from_service_account(SERVICE_ACCOUNT_INFO)
-    calendar_service = APIService(service_name='calendar', api_version='v3', google_credentials=credentials)
+    calendar_service = APIService(service_name=SERVICE_NAME, api_version=API_VERSION, google_credentials=credentials)
     events = EventsRepository(calendar_service, CALENDAR_ID)
 
     next_event = events.next_event()
