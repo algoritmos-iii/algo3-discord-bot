@@ -22,8 +22,12 @@ export const data = new EmbedPage(
         {
             name: 'Detalles de la clase',
             value: `Empieza el ${dateFromISO(
-                event.start.dateTime
-            )} y termina el ${dateFromISO(event.end.dateTime)}`,
+                event.start.dateTime,
+                event.start.timeZone
+            )} y termina el ${dateFromISO(
+                event.end.dateTime,
+                event.end.timeZone
+            )}`,
         },
         {
             name: 'Temas',
@@ -61,7 +65,7 @@ export const data = new EmbedPage(
         .roles.cache.get(client.config.studentRoleID)}`
 );
 
-function dateFromISO(isoDate: string) {
+function dateFromISO(isoDate: string, timeZone: string) {
     const date = new Date(isoDate);
     return date.toLocaleTimeString('es-ES', {
         weekday: 'long',
@@ -71,5 +75,6 @@ function dateFromISO(isoDate: string) {
         hour: 'numeric',
         minute: 'numeric',
         hour12: false,
+        timeZone: timeZone,
     });
 }
