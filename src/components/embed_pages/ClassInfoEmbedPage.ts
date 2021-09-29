@@ -6,6 +6,7 @@ export const data = new EmbedPage(
     client,
     false,
     false,
+    false,
     'nextClass',
     'Información de la próxima clase',
     '',

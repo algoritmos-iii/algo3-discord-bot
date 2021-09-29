@@ -5,6 +5,7 @@ export const data = new EmbedPage(
     client,
     true,
     true,
+    false,
     'readme',
     'Algoritmos y Programación III - Cátedra Leveroni',
     'Para consultas por vos',
