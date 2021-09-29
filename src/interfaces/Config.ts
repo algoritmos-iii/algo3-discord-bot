@@ -17,4 +17,5 @@ export interface Config {
     devRoleID: string;
     devTextChannelID: string;
     generalTextChannelID: string;
+    teachersTextChannelID: string;
 }
