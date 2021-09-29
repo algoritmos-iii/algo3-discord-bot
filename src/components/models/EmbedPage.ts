@@ -21,11 +21,13 @@ export class EmbedPage {
     public content: string | null;
     public autoSend: boolean;
     public edit: boolean;
+    public cleanChatHistory: boolean;
 
     constructor(
         client: AlgoBot,
         autoSend: boolean,
         edit: boolean,
+        cleanChatHistory: boolean,
         name: string,
         title: string,
         description: string = '',
@@ -40,6 +42,7 @@ export class EmbedPage {
         this.content = content;
         this.autoSend = autoSend;
         this.edit = edit;
+        this.cleanChatHistory = cleanChatHistory;
         this.targetChannels = this.channelsFromIDs(targetChannelsIDs);
         this.data = this.buildData(title, description, fieldsData, url);
         this.components = this.buildComponents(buttons);
@@ -115,6 +118,9 @@ export class EmbedPage {
 
             if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
                 await previousMessages.first()!.edit(messageContent);
+            } else if (this.targetChannelIsNotEmpty(previousMessages) && this.cleanChatHistory){
+                await previousMessages.first()!.delete();
+                await targetChannel.send(messageContent);
             } else {
                 await targetChannel.send(messageContent);
             }

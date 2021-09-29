@@ -4,6 +4,7 @@ import { client } from '../../index';
 export const data = new EmbedPage(
     client,
     true,
+    false,
     true,
     'teachers',
     'Cola de espera de consultas',
