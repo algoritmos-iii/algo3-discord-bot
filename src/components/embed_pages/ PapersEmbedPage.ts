@@ -7,6 +7,7 @@ export const data = new EmbedPage(
     client,
     true,
     true,
+    false,
     'papers',
     'Lista de lecturas obligatorias',
     'Links a papers',

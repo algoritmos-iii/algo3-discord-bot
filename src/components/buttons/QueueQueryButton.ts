@@ -1,4 +1,4 @@
-import { ButtonInteraction, GuildMember, MessageButton } from 'discord.js';
+import { ButtonInteraction, GuildMember, MessageButton, TextChannel } from 'discord.js';
 import { client } from '../../index';
 
 export const execute = async (interaction: ButtonInteraction) => {
@@ -37,6 +37,9 @@ export const execute = async (interaction: ButtonInteraction) => {
         content: 'Has sido puesto en la cola de espera!',
         ephemeral: true,
     });
+
+    const teachersTextChannel = interaction.guild!.channels.cache.find((channel) => channel.id === client.config.teachersTextChannelID) as TextChannel;
+    await teachersTextChannel!.send(`${member.displayName} (${group ? group.name : 'sin grupo'}) necesita ayuda en un canal de voz`);
 };
 
 export const data = new MessageButton()
