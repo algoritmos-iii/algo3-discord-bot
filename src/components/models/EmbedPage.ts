@@ -118,7 +118,10 @@ export class EmbedPage {
 
             if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
                 await previousMessages.first()!.edit(messageContent);
-            } else if (this.targetChannelIsNotEmpty(previousMessages) && this.cleanChatHistory){
+            } else if (
+                this.targetChannelIsNotEmpty(previousMessages) &&
+                this.cleanChatHistory
+            ) {
                 await previousMessages.first()!.delete();
                 await targetChannel.send(messageContent);
             } else {
