@@ -18,4 +18,5 @@ export interface Config {
     devTextChannelID: string;
     generalTextChannelID: string;
     teachersTextChannelID: string;
+    queryLogTextChannelID: string;
 }

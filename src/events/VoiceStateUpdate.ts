@@ -3,6 +3,7 @@ import {
     Channel,
     Collection,
     GuildMember,
+    TextChannel,
     VoiceChannel,
     VoiceState,
 } from 'discord.js';
@@ -18,20 +19,37 @@ export const execute: ExecuteFunction = async (
     const member: GuildMember = newState.member!;
 
     if (
-        oldChannel &&
+        oldChannel != undefined &&
         oldChannel.parentId === client.config.mitosisCategoryID &&
         oldChannel.id != client.config.mitosisVoiceChannelID &&
         oldChannel.members.size === 0
     ) {
+        const group = member.roles.cache.find((role) =>
+            role.name.startsWith('Grupo')
+        );
+        if (group != undefined && client.queryQueue.hasSomeMemberOf(group)) {
+            const queryLogTextChannel = oldChannel.guild!.channels.cache.find(
+                (channel) => channel.id === client.config.queryLogTextChannelID
+            ) as TextChannel;
+            await queryLogTextChannel!.send(
+                `:wave: ${
+                    group ? 'El ' + group.name : member.displayName
+                } abandonó su canal de voz.`
+            );
+            client.queryQueue.deleteMember(member);
+        }
         await oldChannel.delete();
     }
-    if (newChannel && newChannel!.id === client.config.mitosisVoiceChannelID) {
+    if (
+        newChannel != undefined &&
+        newChannel!.id === client.config.mitosisVoiceChannelID
+    ) {
         const group = member.roles.cache.find((role) =>
             role.name.startsWith('Grupo')
         );
         let voiceGroupChannel: Collection<string, Channel> = new Collection();
         let channelName = `${member.displayName}`;
-        if (group) {
+        if (group != undefined) {
             channelName = `${group.name}`;
             voiceGroupChannel = client.channels.cache.filter(
                 (channel) => channel.isVoice() && channel.name === group.name
