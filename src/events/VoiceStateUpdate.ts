@@ -32,7 +32,7 @@ export const execute: ExecuteFunction = async (
                 (channel) => channel.id === client.config.queryLogTextChannelID
             ) as TextChannel;
             await queryLogTextChannel!.send(
-                `:wave: ${
+                `:no_entry: ${
                     group ? 'El ' + group.name : member.displayName
                 } abandonó su canal de voz.`
             );

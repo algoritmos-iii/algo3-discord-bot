@@ -29,7 +29,7 @@ export const execute = async (interaction: ButtonInteraction) => {
         (channel) => channel.id === client.config.queryLogTextChannelID
     ) as TextChannel;
     await queryLogTextChannel!.send(
-        `❎ ${
+        `:no_entry: ${
             group ? 'El ' + group.name : member.displayName
         } canceló la consulta.`
     );
