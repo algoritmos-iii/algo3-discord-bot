@@ -31,32 +31,22 @@ export const data = new EmbedPage(
             )}`,
         },
         {
-            name: 'Temas',
-            value: `${event.summary}`,
+            name: 'Temas a ver',
+            value: `${extractTopicsFromEventDescription(event.description)}`,
         },
         {
-            name: 'Lecturas',
-            value: `${
-                event.description.includes('Paper a tener leído:')
-                    ? event.description
-                          .split('Paper a tener leído: ')[1]
-                          .concat(
-                              `\n*Para encontrar el link a un paper podés hacerlo desde ${client.channels.cache.get(
-                                  client.config.papersTextChannelID
-                              )} o en la [web de la cátedra](https://algoritmos-iii.github.io/)*`
-                          )
-                    : '-'
-            }`,
+            name: 'Ejercicio a tener entregado',
+            value: `${extractExercisesFromEventDescription(event.description)}`,
         },
         {
-            name: 'Entregas',
-            value: `${
-                event.description.includes('Ejercicio a tener entregado:')
-                    ? event.description.split(
-                          'Ejercicio a tener entregado: '
-                      )[1]
-                    : '-'
-            }`,
+            name: 'Paper a tener leído',
+            value: `${extractLecturesFromEventDescription(
+                event.description
+            ).concat(
+                `\n*Para encontrar el link a un paper podés hacerlo desde ${client.channels.cache.get(
+                    client.config.papersTextChannelID
+                )} o en la [web de la cátedra](https://algoritmos-iii.github.io/)*`
+            )}`,
         },
     ],
     null,
@@ -78,4 +68,34 @@ function dateFromISO(isoDate: string, timeZone: string) {
         hour12: false,
         timeZone: timeZone,
     });
+}
+
+function extractTopicsFromEventDescription(eventDescription: string): string {
+    let classTopics = eventDescription.split('Temas a tratar: ')[1];
+    classTopics = classTopics.split('Paper a tener leído: ')[0];
+    classTopics = classTopics.split('Ejercicio a tener entregado: ')[0];
+    return classTopics;
+}
+
+function extractLecturesFromEventDescription(eventDescription: string): string {
+    if (eventDescription.includes('Paper a tener leído: ')) {
+        let classLectures = eventDescription.split('Paper a tener leído: ')[1];
+        classLectures = classLectures.split('Ejercicio a tener entregado: ')[0];
+        return classLectures;
+    } else {
+        return '-';
+    }
+}
+
+function extractExercisesFromEventDescription(
+    eventDescription: string
+): string {
+    if (eventDescription.includes('Ejercicio a tener entregado: ')) {
+        let classExercises = eventDescription.split(
+            'Ejercicio a tener entregado: '
+        )[1];
+        return classExercises;
+    } else {
+        return '-';
+    }
 }

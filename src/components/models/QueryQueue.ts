@@ -95,4 +95,12 @@ export class QueryQueue {
             (enqueuedMember) => enqueuedMember.id === member.id
         );
     }
+
+    public deleteMember(member: GuildMember): void {
+        const memberIndex = this.indexOf(member);
+        if (memberIndex !== -1) {
+            this.splice(memberIndex, 1);
+            this.notify();
+        }
+    }
 }

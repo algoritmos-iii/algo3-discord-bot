@@ -3,6 +3,7 @@ import {
     ButtonInteraction,
     GuildMember,
     VoiceChannel,
+    TextChannel,
 } from 'discord.js';
 import { client } from '../../index';
 
@@ -79,6 +80,14 @@ export const execute = async (interaction: ButtonInteraction) => {
             });
         }
     }
+    const queryLogTextChannel = interaction.guild!.channels.cache.find(
+        (channel) => channel.id === client.config.queryLogTextChannelID
+    ) as TextChannel;
+    await queryLogTextChannel!.send(
+        `✅ Se atendió la consulta de ${
+            group ? 'el ' + group.name : consultee.displayName
+        }.`
+    );
 };
 
 export const data = new MessageButton()

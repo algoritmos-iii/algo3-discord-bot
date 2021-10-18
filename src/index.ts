@@ -26,6 +26,7 @@ const config: Config = {
     devRoleID: process.env.DEV_ROLE_ID as string,
     generalTextChannelID: process.env.GENERAL_TEXT_CHANNEL_ID as string,
     teachersTextChannelID: process.env.TEACHERS_TEXT_CHANNEL_ID as string,
+    queryLogTextChannelID: process.env.QUERY_LOG_TEXT_CHANNEL_ID as string,
 };
 
 client.start(config);
