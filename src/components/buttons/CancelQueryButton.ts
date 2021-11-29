@@ -31,7 +31,7 @@ export const execute = async (interaction: ButtonInteraction) => {
     await queryLogTextChannel!.send(
         `:no_entry: ${
             group ? 'El ' + group.name : member.displayName
-        } canceló la consulta.`
+        } desestimó la consulta.`
     );
 };
 

@@ -34,7 +34,7 @@ export const execute: ExecuteFunction = async (
             await queryLogTextChannel!.send(
                 `:no_entry: ${
                     group ? 'El ' + group.name : member.displayName
-                } abandonó su canal de voz.`
+                } desestimó la consulta.`
             );
             client.queryQueue.deleteMember(member);
         }
