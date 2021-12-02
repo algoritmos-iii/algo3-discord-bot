@@ -15,11 +15,10 @@ CREDENTIALS = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(SERVIC
 def main():
     client = gspread.authorize(CREDENTIALS)
     sheet = client.open_by_key(SHEET_ID).sheet1
-    fechaDeCreacion = sys.argv[1]
-    grupo = sys.argv[2]
-    cierre = sys.argv[3]
-    brindador = ' '.join(sys.argv[4:])
-    sheet.append_row([fechaDeCreacion, grupo, cierre, brindador])
+    grupo = ' '.join(sys.argv[1])
+    cierre = sys.argv[2]
+    brindador = ' '.join(sys.argv[3:])
+    sheet.append_row([grupo, cierre, brindador])
 
 if __name__ == "__main__":
     main()

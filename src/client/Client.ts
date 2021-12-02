@@ -191,40 +191,20 @@ class Bot extends Client {
         ]);
     }
 
-    public logHelp(
-        creationDate: Date,
-        creator: string,
-        helper: string,
-        end: string
-    ) {
+    public logHelp(creator: string, helper: string, end: string) {
         this.logger.info(
-            `Logging help asked by ${helper} helped by Grupo ${creator} (${end})`
+            `Logging help asked by ${creator} helped by Grupo ${helper} (${end})`
         );
+        if (creator.split(' ').length > 1) {
+            creator = creator.split(' ')[1];
+        }
         child_process.spawn('python3', [
             `./scripts/help_logger.py`,
-            Bot.dateFromISO(
-                creationDate.toISOString(),
-                'America/Argentina/Buenos_Aires'
-            ),
             creator,
             end,
             helper,
         ]);
         this.logger.success('Help logged.');
-    }
-
-    static dateFromISO(isoDate: string, timeZone: string) {
-        const date = new Date(isoDate);
-        return date.toLocaleTimeString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: false,
-            timeZone: timeZone,
-        });
     }
 }
 

@@ -29,7 +29,6 @@ export const execute = async (interaction: ButtonInteraction) => {
     );
 
     client.logHelp(
-        interaction.createdAt,
         group ? group.name.split(' ')[1] : consultee.displayName,
         consultor.displayName,
         'Brindada'
