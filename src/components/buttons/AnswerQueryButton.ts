@@ -84,7 +84,7 @@ export const execute = async (interaction: ButtonInteraction) => {
         (channel) => channel.id === client.config.queryLogTextChannelID
     ) as TextChannel;
     await queryLogTextChannel!.send(
-        `✅ Se atendió la consulta de ${
+        `✅ ${consultor.displayName} atendió la consulta de ${
             group ? 'el ' + group.name : consultee.displayName
         }.`
     );
