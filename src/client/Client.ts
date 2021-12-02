@@ -190,6 +190,22 @@ class Bot extends Client {
             './submodules/next_class_info_scraper.py',
         ]);
     }
+
+    public logHelp(creator: string, helper: string, end: string) {
+        this.logger.info(
+            `Logging help asked by ${creator} helped by Grupo ${helper} (${end})`
+        );
+        if (creator.split(' ').length > 1) {
+            creator = creator.split(' ')[1];
+        }
+        child_process.spawn('python3', [
+            `./scripts/help_logger.py`,
+            creator,
+            end,
+            helper,
+        ]);
+        this.logger.success('Help logged.');
+    }
 }
 
 export { Bot as AlgoBot };

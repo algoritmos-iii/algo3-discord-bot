@@ -19,11 +19,18 @@ export const execute = async (interaction: ButtonInteraction) => {
         });
         return;
     }
+
     client.queryQueue.splice(client.queryQueue.indexOf(member), 1);
     await interaction.reply({
         content: 'Has sido removido de la cola de espera!',
         ephemeral: true,
     });
+
+    client.logHelp(
+        group ? group.name.split(' ')[1] : member.displayName,
+        '-',
+        'Desestimada'
+    );
 
     const queryLogTextChannel = interaction.guild!.channels.cache.find(
         (channel) => channel.id === client.config.queryLogTextChannelID

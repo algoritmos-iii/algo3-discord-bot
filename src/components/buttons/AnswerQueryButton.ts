@@ -27,6 +27,13 @@ export const execute = async (interaction: ButtonInteraction) => {
     const group = consultee.roles.cache.find((role) =>
         role.name.startsWith('Grupo')
     );
+
+    client.logHelp(
+        group ? group.name.split(' ')[1] : consultee.displayName,
+        consultor.displayName,
+        'Brindada'
+    );
+
     if (group) {
         let groupVoiceChannel = interaction.guild!.channels.cache.find(
             (channel) => channel.name === group.name
