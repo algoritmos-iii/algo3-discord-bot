@@ -195,9 +195,6 @@ class Bot extends Client {
         this.logger.info(
             `Logging help asked by ${creator} helped by Grupo ${helper} (${end})`
         );
-        if (creator.split(' ').length > 1) {
-            creator = creator.split(' ')[1];
-        }
         child_process.spawn('python3', [
             `./scripts/help_logger.py`,
             creator,
