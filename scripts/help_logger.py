@@ -16,7 +16,7 @@ def main():
     client = gspread.authorize(CREDENTIALS)
     sheet = client.open_by_key(SHEET_ID).sheet1
     fechaDeCreacion = sys.argv[1]
-    grupo = ' '.join(sys.argv[2])
+    grupo = sys.argv[2]
     cierre = sys.argv[3]
     brindador = ' '.join(sys.argv[4:])
     sheet.append_row([fechaDeCreacion, grupo, cierre, brindador])
