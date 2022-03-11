@@ -11,6 +11,7 @@ import path from 'path';
 import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
+import * as commands from '../commands/index.ts'
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -44,15 +45,10 @@ class Bot extends Client {
     private async loadCommands() {
         this.logger.info(`Loading commands...`);
 
-        const commandFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../commands'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of commandFiles) {
-            const command: Command = require(`../commands/${file}`);
+        Object.values(commands).forEach(command => {
             this.commands.set(command.data.name, command);
             this.logger.success(`Command ${command.data.name} loaded.`);
-        }
+        });
 
         this.logger.success(`Commands loaded.`);
     }
