@@ -13,7 +13,7 @@ import cron from 'node-cron';
 import child_process from 'child_process';
 import * as commands from '../commands/index.ts';
 import * as events from '../events/index.ts';
-import * as buttons from '../components/buttons.ts';
+import * as buttons from '../components/buttons/index.ts';
 import * as embeds from '../components/embed_pages/index.ts';
 
 class Bot extends Client {
