@@ -1,0 +1,5 @@
+export * from 'PapersEmbedPage.ts'
+export * from 'ClassInfoEmbedPage.ts'
+export * from 'ReadmeEmbedPage.ts'
+export * from 'StudentsEmbedPage.ts'
+export * from 'TeachersQueryQueueEmbedPage.ts'

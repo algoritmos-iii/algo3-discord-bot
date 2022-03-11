@@ -11,9 +11,10 @@ import path from 'path';
 import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
-import * as commands from '../commands/index.ts'
-import * as events from '../events/index.ts'
-import * as buttons from '../components/buttons.ts'
+import * as commands from '../commands/index.ts';
+import * as events from '../events/index.ts';
+import * as buttons from '../components/buttons.ts';
+import * as embeds from '../components/embed_pages/index.ts';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -84,12 +85,7 @@ class Bot extends Client {
     public async loadEmbeds() {
         this.logger.info(`Loading embeds...`);
 
-        const embedFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../components/embed_pages'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of embedFiles) {
-            const embed: EmbedPageInterface = require(`../components/embed_pages/${file}`);
+	Object.values(embeds).forEach(embed => {
             this.embeds.set(embed.data.name, embed.data);
             if (
                 embed.data.name === 'students' ||
@@ -101,7 +97,8 @@ class Bot extends Client {
                 await embed.data.send();
                 this.logger.success(`Embed ${embed.data.name} sent.`);
             }
-        }
+	});
+
 
         this.logger.success(`Sent ${this.embeds.size} embeds.`);
     }
