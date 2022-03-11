@@ -12,6 +12,7 @@ import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
 import * as commands from '../commands/index.ts'
+import * as events from '../events/index.ts'
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -56,19 +57,14 @@ class Bot extends Client {
     private async loadEvents() {
         this.logger.info(`Loading events...`);
 
-        const eventFiles = fs
-            .readdirSync(path.resolve(__dirname, '../events'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of eventFiles) {
-            const event = require(`../events/${file}`);
-            if (event.once) {
-                this.once(event.name, (...args) => event.execute(...args));
-            } else {
-                this.on(event.name, (...args) => event.execute(...args));
-            }
-            this.logger.success(`Listening to ${event.name} event.`);
-        }
+	Object.values(events).forEach(event => {
+	    if (event.once) {
+		this.once(event.name, (...args) => event.execute(...args));
+	    } else {
+		this.on(event.name, (...args) => event.execute(...args));
+	    }
+	    this.logger.success(`Listening to ${event.name} event.`);
+	});
 
         this.logger.success(`Events loaded.`);
     }
