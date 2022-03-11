@@ -13,6 +13,7 @@ import cron from 'node-cron';
 import child_process from 'child_process';
 import * as commands from '../commands/index.ts'
 import * as events from '../events/index.ts'
+import * as buttons from '../components/buttons.ts'
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -71,16 +72,11 @@ class Bot extends Client {
 
     private async loadButtons() {
         this.logger.info(`Loading buttons...`);
-
-        const buttonFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../components/buttons'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of buttonFiles) {
-            const button: Button = require(`../components/buttons/${file}`);
+	
+	Object.values(buttons).forEach(button => {
             this.buttons.set(button.data.customId!, button);
             this.logger.success(`Button ${button.data.customId} loaded.`);
-        }
+	}
 
         this.logger.success(`Buttons loaded.`);
     }
