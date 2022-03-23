@@ -1,6 +1,7 @@
 import { EmbedPage } from '../models/EmbedPage';
 import { client } from '../../index';
 import * as event from '../../../assets/event.json';
+import { AlgoBot } from '../../client/Client';
 
 export const data = new EmbedPage(
     client,
@@ -22,10 +23,10 @@ export const data = new EmbedPage(
         },
         {
             name: 'Detalles de la clase',
-            value: `Empieza el ${dateFromISO(
+            value: `Empieza el ${AlgoBot.dateFromISO(
                 event.start.dateTime,
                 event.start.timeZone
-            )} y termina el ${dateFromISO(
+            )} y termina el ${AlgoBot.dateFromISO(
                 event.end.dateTime,
                 event.end.timeZone
             )}`,
@@ -55,20 +56,6 @@ export const data = new EmbedPage(
         .first()!
         .roles.cache.get(client.config.studentRoleID)}`
 );
-
-function dateFromISO(isoDate: string, timeZone: string) {
-    const date = new Date(isoDate);
-    return date.toLocaleTimeString('es-ES', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: false,
-        timeZone: timeZone,
-    });
-}
 
 function extractTopicsFromEventDescription(eventDescription: string): string {
     let classTopics = eventDescription.split('Temas a tratar: ')[1];
