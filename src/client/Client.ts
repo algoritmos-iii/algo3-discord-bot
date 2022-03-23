@@ -77,7 +77,7 @@ class Bot extends Client {
 	Object.values(buttons).forEach(button => {
             this.buttons.set(button.data.customId!, button);
             this.logger.success(`Button ${button.data.customId} loaded.`);
-	}
+	});
 
         this.logger.success(`Buttons loaded.`);
     }
