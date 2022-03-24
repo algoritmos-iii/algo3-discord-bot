@@ -11,6 +11,10 @@ import path from 'path';
 import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
+import * as commands from '../commands/index.ts';
+import * as events from '../events/index.ts';
+import * as buttons from '../components/buttons/index.ts';
+import * as embeds from '../components/embed_pages/index.ts';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -44,15 +48,10 @@ class Bot extends Client {
     private async loadCommands() {
         this.logger.info(`Loading commands...`);
 
-        const commandFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../commands'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of commandFiles) {
-            const command: Command = require(`../commands/${file}`);
+        Object.values(commands).forEach(command => {
             this.commands.set(command.data.name, command);
             this.logger.success(`Command ${command.data.name} loaded.`);
-        }
+        });
 
         this.logger.success(`Commands loaded.`);
     }
@@ -60,35 +59,25 @@ class Bot extends Client {
     private async loadEvents() {
         this.logger.info(`Loading events...`);
 
-        const eventFiles = fs
-            .readdirSync(path.resolve(__dirname, '../events'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of eventFiles) {
-            const event = require(`../events/${file}`);
-            if (event.once) {
-                this.once(event.name, (...args) => event.execute(...args));
-            } else {
-                this.on(event.name, (...args) => event.execute(...args));
-            }
-            this.logger.success(`Listening to ${event.name} event.`);
-        }
+	Object.values(events).forEach(event => {
+	    if (event.once) {
+		this.once(event.name, (...args) => event.execute(...args));
+	    } else {
+		this.on(event.name, (...args) => event.execute(...args));
+	    }
+	    this.logger.success(`Listening to ${event.name} event.`);
+	});
 
         this.logger.success(`Events loaded.`);
     }
 
     private async loadButtons() {
         this.logger.info(`Loading buttons...`);
-
-        const buttonFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../components/buttons'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of buttonFiles) {
-            const button: Button = require(`../components/buttons/${file}`);
+	
+	Object.values(buttons).forEach(button => {
             this.buttons.set(button.data.customId!, button);
             this.logger.success(`Button ${button.data.customId} loaded.`);
-        }
+	});
 
         this.logger.success(`Buttons loaded.`);
     }
@@ -96,12 +85,7 @@ class Bot extends Client {
     public async loadEmbeds() {
         this.logger.info(`Loading embeds...`);
 
-        const embedFiles: string[] = fs
-            .readdirSync(path.resolve(__dirname, '../components/embed_pages'))
-            .filter((file) => file.endsWith('.js'));
-
-        for (const file of embedFiles) {
-            const embed: EmbedPageInterface = require(`../components/embed_pages/${file}`);
+	Object.values(embeds).forEach(embed => {
             this.embeds.set(embed.data.name, embed.data);
             if (
                 embed.data.name === 'students' ||
@@ -113,7 +97,8 @@ class Bot extends Client {
                 await embed.data.send();
                 this.logger.success(`Embed ${embed.data.name} sent.`);
             }
-        }
+	});
+
 
         this.logger.success(`Sent ${this.embeds.size} embeds.`);
     }
