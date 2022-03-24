@@ -19,16 +19,10 @@ function padronIsValid(padron: string) {
     );
 }
 
-function getStudentInfo(email: string, padron: string) {
-    for (const index in students) {
-        if (
-            students[index].includes(email) &&
-            students[index].includes(padron)
-        ) {
-            return students[index];
-        }
-    }
-    return [];
+function studentIsValid(email: string, padron: string): boolean {
+    return students.some((student) => {
+        return student.includes(email) && student.includes(padron);
+    });
 }
 
 export const execute: ExecuteFunction = async (
@@ -40,12 +34,10 @@ export const execute: ExecuteFunction = async (
 
     await interaction.deferReply({ ephemeral: true });
 
-    const studentInfo = getStudentInfo(email, padron);
-
     if (
         !emailIsValid(email) ||
         !padronIsValid(padron) ||
-        studentInfo.length === 0
+        !studentIsValid(email, padron)
     ) {
         await interaction.editReply(
             'Datos ingresados inválidos (revisá que estén bien escritos y recordá que tenés que utilizar los mismos usaste para llenar el forms). \n*Si llevás varios intentos, consultá con un docente...*'
