@@ -165,7 +165,7 @@ class Bot extends Client {
         this.logger.info(`Scheduling messages...`);
 
         cron.schedule(
-            '0 50 18 * 9,10,11,12 1,4',
+            '0 00 18 * 3,4,5,6 1,4',
             () => {
                 this.logger.info('Sending class reminder...');
                 this.embeds.get('nextClass')!.send();
@@ -175,7 +175,7 @@ class Bot extends Client {
         );
 
         cron.schedule(
-            '0 10 22 * 9,10,11,12 1,4',
+            '0 10 22 * 3,4,5,6 1,4',
             async () => {
                 this.logger.info('Loading next class event data...');
                 await this.updateNextClassData();
