@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, GuildMember } from 'discord.js';
 import { ExecuteFunction } from '../interfaces/Command';
-import * as students from '../../assets/Listado.json';
+import students from '../../assets/Listado.json';
 
 function emailIsValid(email: string) {
     const re =
