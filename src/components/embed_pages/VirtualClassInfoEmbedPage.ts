@@ -8,8 +8,8 @@ export const data = new EmbedPage(
     false,
     false,
     false,
-    'nextClass',
-    'Información de la próxima clase',
+    'nextVirtualClass',
+    'Información de la próxima clase virtual',
     '',
     [client.config.generalTextChannelID],
     [
