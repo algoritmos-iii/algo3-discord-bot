@@ -11,6 +11,7 @@ import path from 'path';
 import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
+import * as event from '../../assets/event.json';
 
 class Bot extends Client {
     public logger: Consola = consola;
@@ -163,12 +164,23 @@ class Bot extends Client {
 
     public scheduleMessages() {
         this.logger.info(`Scheduling messages...`);
+        let next_class_embed: EmbedPage;
+
+        if (event.summary.includes('[Virtual]')) {
+            next_class_embed = this.embeds.get('nextVirtualClass') as EmbedPage;
+        } else if (event.summary.includes('[Presencial]')) {
+            next_class_embed = this.embeds.get(
+                'nextFaceToFaceClass'
+            ) as EmbedPage;
+        } else {
+            this.logger.error(`Invalid class type.`);
+        }
 
         cron.schedule(
             '0 00 18 * 3,4,5,6 1,4',
             () => {
                 this.logger.info('Sending class reminder...');
-                this.embeds.get('nextClass')!.send();
+                next_class_embed;
                 this.logger.success('Class remainder sent.');
             },
             { timezone: 'America/Argentina/Buenos_Aires' }
