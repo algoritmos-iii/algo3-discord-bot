@@ -20,9 +20,15 @@ function padronIsValid(padron: string) {
 }
 
 function studentIsValid(email: string, padron: string): boolean {
-    return students.some((student) => {
-        return student.includes(email) && student.includes(padron);
-    });
+    for (const index in students) {
+        if (
+            students[index].includes(email) &&
+            students[index].includes(padron)
+        ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 export const execute: ExecuteFunction = async (
