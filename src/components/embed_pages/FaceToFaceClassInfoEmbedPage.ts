@@ -1,6 +1,6 @@
 import { EmbedPage } from '../models/EmbedPage';
 import { client } from '../../index';
-import * as event from '../../../assets/event.json';
+import event from '../../../assets/event.json';
 import { AlgoBot } from '../../client/Client';
 
 export const data = new EmbedPage(
