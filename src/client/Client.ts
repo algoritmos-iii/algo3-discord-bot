@@ -11,7 +11,7 @@ import path from 'path';
 import fs from 'fs';
 import cron from 'node-cron';
 import child_process from 'child_process';
-import * as event from '../../assets/event.json';
+import event from '../../assets/event.json';
 
 class Bot extends Client {
     public logger: Consola = consola;
