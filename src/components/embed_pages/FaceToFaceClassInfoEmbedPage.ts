@@ -37,13 +37,10 @@ export const data = new EmbedPage(
         },
         {
             name: 'Paper a tener leído',
-            value: `${extractLecturesFromEventDescription(
-                event.description
-            ).concat(
-                `\n*Para encontrar el link a un paper podés hacerlo desde ${client.channels.cache.get(
-                    client.config.papersTextChannelID
-                )} o en la [web de la cátedra](https://algoritmos-iii.github.io/)*`
-            )}`,
+            value: extractLecturesFromEventDescription(event.description) +
+                '\n*Para encontrar el link a un paper podés hacerlo desde ' +
+                client.channels.cache.get(client.config.papersTextChannelID) +
+                ' o en la [web de la cátedra](https://algoritmos-iii.github.io/)*',
         },
     ],
     null,
