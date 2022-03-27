@@ -29,15 +29,16 @@ export const data = new EmbedPage(
         },
         {
             name: 'Temas a ver',
-            value: `${extractTopicsFromEventDescription(event.description)}`,
+            value: extractTopicsFromEventDescription(event.description),
         },
         {
             name: 'Ejercicio a tener entregado',
-            value: `${extractExercisesFromEventDescription(event.description)}`,
+            value: extractExercisesFromEventDescription(event.description),
         },
         {
             name: 'Paper a tener leído',
-            value: extractLecturesFromEventDescription(event.description) +
+            value:
+                extractLecturesFromEventDescription(event.description) +
                 '\n*Para encontrar el link a un paper podés hacerlo desde ' +
                 client.channels.cache.get(client.config.papersTextChannelID) +
                 ' o en la [web de la cátedra](https://algoritmos-iii.github.io/)*',
@@ -48,6 +49,7 @@ export const data = new EmbedPage(
     client.guilds.cache
         .first()!
         .roles.cache.get(client.config.studentRoleID)
+        ?.toString()
 );
 
 function extractTopicsFromEventDescription(eventDescription: string): string {
