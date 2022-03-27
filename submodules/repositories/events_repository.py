@@ -18,6 +18,9 @@ class EventsRepository:
         request = self.events().list(calendarId=self.__calendar_id, timeMin=now,
                                      maxResults=1, singleEvents=True, orderBy='startTime')
         response = request.execute()
-        print('Got it!')
+
+        if len(response.get('items', [])) == 0:
+            print('No upcoming events found. CHECK IF THE CALENDAR ID IS CORRECT')
+            return {}
 
         return response.get('items', [])[0]
