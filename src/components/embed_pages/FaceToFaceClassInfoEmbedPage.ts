@@ -48,9 +48,9 @@ export const data = new EmbedPage(
     ],
     null,
     null,
-    `${client.guilds.cache
+    client.guilds.cache
         .first()!
-        .roles.cache.get(client.config.studentRoleID)}`
+        .roles.cache.get(client.config.studentRoleID)
 );
 
 function extractTopicsFromEventDescription(eventDescription: string): string {
