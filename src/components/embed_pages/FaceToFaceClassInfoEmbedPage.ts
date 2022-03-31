@@ -15,7 +15,7 @@ export const data = new EmbedPage(
     [
         {
             name: 'Aula',
-            value: '305',
+            value: '400',
         },
         {
             name: 'Detalles de la clase',
