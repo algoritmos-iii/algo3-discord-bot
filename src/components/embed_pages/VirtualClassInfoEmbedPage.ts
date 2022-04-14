@@ -44,7 +44,9 @@ export const data = new EmbedPage(
             value:
                 extractLecturesFromEventDescription(event.description) +
                 '\n*Para encontrar el link a un paper podés hacerlo desde ' +
-                client.channels.cache.get(client.config.papersTextChannelID)?.toString() +
+                client.channels.cache
+                    .get(client.config.papersTextChannelID)
+                    ?.toString() +
                 ' o en la [web de la cátedra](https://algoritmos-iii.github.io/)*',
         },
     ],
