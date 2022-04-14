@@ -177,6 +177,16 @@ class Bot extends Client {
         }
 
         cron.schedule(
+            '0 00 17 * 3,4,5,6 1,4',
+            () => {
+                this.logger.info('Sending class reminder...');
+                next_class_embed.send();
+                this.logger.success('Class remainder sent.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
+
+        cron.schedule(
             '0 00 18 * 3,4,5,6 1,4',
             () => {
                 this.logger.info('Sending class reminder...');
