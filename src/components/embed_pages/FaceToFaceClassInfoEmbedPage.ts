@@ -29,21 +29,26 @@ export const data = new EmbedPage(
         },
         {
             name: 'Temas a ver',
-            value: extractTopicsFromEventDescription(event.description),
+            value: event.summary.includes('Holiday')
+                ? 'NO HAY CLASES'
+                : extractTopicsFromEventDescription(event.description),
         },
         {
             name: 'Ejercicio a tener entregado',
-            value: extractExercisesFromEventDescription(event.description),
+            value: event.summary.includes('Holiday')
+                ? 'NO HAY CLASES'
+                : extractExercisesFromEventDescription(event.description),
         },
         {
             name: 'Paper a tener leído',
-            value:
-                extractLecturesFromEventDescription(event.description) +
-                '\n*Para encontrar el link a un paper podés hacerlo desde ' +
-                client.channels.cache
-                    .get(client.config.papersTextChannelID)
-                    ?.toString() +
-                ' o en la [web de la cátedra](https://algoritmos-iii.github.io/)*',
+            value: event.summary.includes('Holiday')
+                ? 'NO HAY CLASES'
+                : extractLecturesFromEventDescription(event.description) +
+                  '\n*Para encontrar el link a un paper podés hacerlo desde ' +
+                  client.channels.cache
+                      .get(client.config.papersTextChannelID)
+                      ?.toString() +
+                  ' o en la [web de la cátedra](https://algoritmos-iii.github.io/)*',
         },
     ],
     null,
