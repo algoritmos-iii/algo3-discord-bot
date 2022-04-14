@@ -172,7 +172,7 @@ class Bot extends Client {
             next_class_embed = this.embeds.get(
                 'nextFaceToFaceClass'
             ) as EmbedPage;
-        } else if (event.summary.includes("Holiday")) {
+        } else if (event.summary.includes('Holiday')) {
             next_class_embed = this.embeds.get('holiday') as EmbedPage;
         } else {
             this.logger.error(`Invalid class type.`);
