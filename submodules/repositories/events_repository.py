@@ -14,13 +14,14 @@ class EventsRepository:
 
     def next_event(self) -> Dict[str, Any]:
         now = datetime.datetime.utcnow().isoformat() + 'Z'
+        next_class = now + datetime.timedelta(days = 4)
         print(f'Getting event from: {now.split()}')
-        request = self.events().list(calendarId=self.__calendar_id, timeMin=now,
+        request = self.events().list(calendarId=self.__calendar_id, timeMin=now, timeMax = next_class, 
                                      maxResults=1, singleEvents=True, orderBy='startTime')
         response = request.execute()
 
         if len(response.get('items', [])) == 0:
-            print('No upcoming events found. CHECK IF THE CALENDAR ID IS CORRECT')
-            return {}
+            print('No upcoming events found. Probably is holiday')
+            return {"summary": "Holiday"}
 
         return response.get('items', [])[0]
