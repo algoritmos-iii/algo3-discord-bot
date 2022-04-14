@@ -1,7 +1,5 @@
 import { EmbedPage } from '../models/EmbedPage';
 import { client } from '../../index';
-import event from '../../../assets/event.json';
-import { AlgoBot } from '../../client/Client';
 
 export const data = new EmbedPage(
     client,
@@ -38,7 +36,7 @@ function get_alan_kay_phrase(random_number: number): string {
         "Normal is the greatest enemy with regard to creating the new. And the way of getting around this is you have to understand normal not as reality, but just a construct. And a way to do that, for example, is just travel to a lot of different countries and you'll find a thousand different ways of thinking the world is real, all of which are just stories inside of people's heads. That's what we are too. Normal is just a construct, and to the extent that you can see normal as a construct in yourself, you have freed yourself from the constraints of thinking this is the way the world is. Because it isn't. This is the way we are.",
         "Scratch the surface in a typical boardroom and we're all just cavemen with briefcases, hungry for a wise person to tell us stories.",
         "Don't worry about what anybody else is going to do. The best way to predict the future is to invent it.",
-        "Simple things should be simple, complex things should be possible.",
+        'Simple things should be simple, complex things should be possible.',
         "I don't know how many of you have ever met Dijkstra, but you probably know that arrogance in computer science is measured in nano-Dijkstras.",
         'Technology is anything invented after you were born.',
         'The most disastrous thing that you can ever learn is your first programming language.',
@@ -46,5 +44,3 @@ function get_alan_kay_phrase(random_number: number): string {
 
     return alan_kay_quotes[random_number];
 }
-
-
