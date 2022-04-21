@@ -13,7 +13,6 @@ class EventsRepository:
         return self.__service.service().events()
 
     def next_event(self) -> Dict[str, Any]:
-        # now = datetime.datetime.utcnow().isoformat() + 'Z'
         now = datetime.datetime.utcnow()
         next_class = now + datetime.timedelta(days = 4)
         print(f'Getting event from: {now.isoformat().split()}')
