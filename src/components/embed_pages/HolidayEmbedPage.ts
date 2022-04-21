@@ -26,9 +26,9 @@ export const data = new EmbedPage(
 
 function get_alan_kay_phrase(random_number: number): string {
     let alan_kay_quotes: string[] = [
-        'Most people have managed to get by without being educated…because, in order to make education more user-friendly, they managed to forget about the changes in people´s brains that are supposed to happen.',
-        'Television is the last technology we should be allowed to invent and put out without a surgeon general’s warning.',
-        'In natural science, Nature has given us a world and we’re just to discover its laws. In computers, we can stuff laws into it and create a world.',
+        'Most people have managed to get by without being educated... because, in order to make education more user-friendly, they managed to forget about the changes in people\'s brains that are supposed to happen.',
+        'Television is the last technology we should be allowed to invent and put out without a surgeon general\'s warning.',
+        'In natural science, Nature has given us a world and we\'re just to discover its laws. In computers, we can stuff laws into it and create a world.',
         'The future is not laid out on a track. It is something that we can decide, and to the extent that we do not violate any known laws of the universe, we can probably make it work the way that we want to.',
         'The Internet was done so well that most people think of it as a natural resource like the Pacific Ocean, rather than something that was man-made. When was the last time a technology with a scale like that was so error-free? The Web, in comparison, is a joke. The Web was done by amateurs.',
         'People who are really serious about software should make their own hardware.',
