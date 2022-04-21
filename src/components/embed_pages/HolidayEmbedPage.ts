@@ -13,7 +13,7 @@ export const data = new EmbedPage(
     [
         {
             name: 'Frase insipradora del dia',
-            value: get_alan_kay_phrase(Math.floor(Math.random() * 15)),
+            value: get_alan_kay_phrase(),
         },
     ],
     null,
@@ -24,7 +24,7 @@ export const data = new EmbedPage(
         ?.toString()
 );
 
-function get_alan_kay_phrase(random_number: number): string {
+function get_alan_kay_phrase(): string {
     let alan_kay_quotes: string[] = [
         'Most people have managed to get by without being educated... because, in order to make education more user-friendly, they managed to forget about the changes in people\'s brains that are supposed to happen.',
         'Television is the last technology we should be allowed to invent and put out without a surgeon general\'s warning.',
@@ -42,5 +42,5 @@ function get_alan_kay_phrase(random_number: number): string {
         'The most disastrous thing that you can ever learn is your first programming language.',
     ];
 
-    return alan_kay_quotes[random_number];
+    return alan_kay_quotes[Math.floor(Math.random() * alan_kay_quotes.length)];
 }
