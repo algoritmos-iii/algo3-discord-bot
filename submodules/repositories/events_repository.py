@@ -16,7 +16,9 @@ class EventsRepository:
         now = datetime.datetime.utcnow()
         next_class = now + datetime.timedelta(days = 4)
         print(f'Getting event from: {now.isoformat().split()}')
-        request = self.events().list(calendarId=self.__calendar_id, timeMin=now.isoformat()+"Z", timeMax = next_class.isoformat()+"Z", 
+        now_iso_string = now.isoformat() + "Z"
+        next_class_iso_string = next_class.isoformat() + "Z"
+        request = self.events().list(calendarId=self.__calendar_id, timeMin=now_iso_string, timeMax = next_class_iso_string, 
                                      maxResults=1, singleEvents=True, orderBy='startTime')
         response = request.execute()
 
