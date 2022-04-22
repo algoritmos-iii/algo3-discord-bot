@@ -5,7 +5,7 @@ from ..api.api_service import APIService
 
 class AlumnosRepository:
     SHEET_ALUMNOS = 'Listado'
-    SHEET_RANGE = 'A1:E58'
+    SHEET_RANGE = 'A1:E90'
 
     def __init__(self, calendarService: APIService, spreadsheet_id: str) -> None:
         self.__spreadsheet_id = spreadsheet_id
