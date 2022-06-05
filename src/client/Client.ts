@@ -172,6 +172,8 @@ class Bot extends Client {
             next_class_embed = this.embeds.get(
                 'nextFaceToFaceClass'
             ) as EmbedPage;
+        } else if (event.summary.includes('Holiday')) {
+            next_class_embed = this.embeds.get('holiday') as EmbedPage;
         } else {
             this.logger.error(`Invalid class type.`);
         }
@@ -224,10 +226,7 @@ class Bot extends Client {
         );
         child_process.spawn('python3', [
             `./scripts/help_logger.py`,
-            Bot.dateFromISO(
-                creationDate.toISOString(),
-                'America/Argentina/Buenos_Aires'
-            ),
+            creationDate.toISOString(),
             creator,
             end,
             helper,
