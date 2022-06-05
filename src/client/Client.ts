@@ -216,10 +216,7 @@ class Bot extends Client {
         );
         child_process.spawn('python3', [
             `./scripts/help_logger.py`,
-            Bot.dateFromISO(
-                creationDate.toISOString(),
-                'America/Argentina/Buenos_Aires'
-            ),
+            creationDate.toISOString(),
             creator,
             end,
             helper,
