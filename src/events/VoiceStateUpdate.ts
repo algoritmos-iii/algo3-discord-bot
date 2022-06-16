@@ -1,6 +1,5 @@
-// import consola from 'consola';
 import {
-    Channel,
+    AnyChannel,
     Collection,
     GuildMember,
     TextChannel,
@@ -47,7 +46,7 @@ export const execute: ExecuteFunction = async (
         const group = member.roles.cache.find((role) =>
             role.name.startsWith('Grupo')
         );
-        let voiceGroupChannel: Collection<string, Channel> = new Collection();
+        let voiceGroupChannel: Collection<string, AnyChannel> = new Collection();
         let channelName = `${member.displayName}`;
         if (group != undefined) {
             channelName = `${group.name}`;

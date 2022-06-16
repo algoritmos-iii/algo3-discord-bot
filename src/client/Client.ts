@@ -1,5 +1,5 @@
 import consola, { Consola } from 'consola';
-import { Client, Intents, Collection, Channel, VoiceChannel } from 'discord.js';
+import { Client, Intents, Collection, Channel, VoiceChannel, AnyChannel } from 'discord.js';
 import { Config } from '../interfaces/Config';
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
@@ -134,7 +134,7 @@ class Bot extends Client {
     }
 
     private async filterUnusedClonedChannels(): Promise<
-        Collection<string, Channel>
+        Collection<string, AnyChannel>
     > {
         this.logger.info(`Filtering unused channels...`);
 
