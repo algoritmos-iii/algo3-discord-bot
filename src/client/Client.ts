@@ -127,7 +127,7 @@ class Bot extends Client {
         );
 
         unusedClonedChannels.forEach(async (channel) => {
-            await channel.delete().catch((err) => this.logger.error(err));
+            await channel.delete().catch((err: any) => this.logger.error(err));
         });
 
         this.logger.success(`Unused channels removed.`);
