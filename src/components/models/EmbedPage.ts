@@ -3,8 +3,9 @@ import {
     EmbedFieldData,
     Message,
     MessageActionRow,
-    MessageActionRowOptions,
+    MessageEditOptions,
     MessageEmbed,
+    MessageOptions,
     TextChannel,
 } from 'discord.js';
 import { AlgoBot } from '../../client/Client';
@@ -15,7 +16,7 @@ export class EmbedPage {
     public data: MessageEmbed;
     public name: string;
     public components!:
-        | (MessageActionRow | MessageActionRowOptions)[]
+        | (MessageActionRow)[]
         | undefined;
     public targetChannels!: TextChannel[];
     public content: string | null;
@@ -87,26 +88,11 @@ export class EmbedPage {
         return data;
     }
 
-    private buildMessageContent() {
-        if (this.components) {
-            return {
-                embeds: [this.data],
-                components: this.components,
-            };
-        } else if (this.content) {
-            return {
-                embeds: [this.data],
-                content: this.content,
-            };
-        } else if (this.content && this.components) {
-            return {
-                embeds: [this.data],
-                content: this.content,
-                components: this.components,
-            };
-        }
+    private buildMessageContent(): MessageOptions {
         return {
+            components: this.components,
             embeds: [this.data],
+            content: this.content
         };
     }
 
@@ -117,7 +103,8 @@ export class EmbedPage {
             const messageContent = this.buildMessageContent();
 
             if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
-                await previousMessages.first()!.edit(messageContent);
+                // Si bien no esta explicito en los tipos, MessageEditOptions esta contenido en MessageOptions
+                await previousMessages.first()!.edit(messageContent as MessageEditOptions);
             } else if (
                 this.targetChannelIsNotEmpty(previousMessages) &&
                 this.cleanChatHistory
