@@ -15,7 +15,12 @@ export const data = new EmbedPage(
     [
         {
             name: 'Aula',
-            value: '305',
+            value: AlgoBot.dateFromISO(
+                event.start.dateTime,
+                event.start.timeZone
+            ).includes('lunes')
+                ? '313'
+                : '400',
         },
         {
             name: 'Detalles de la clase',
