@@ -29,19 +29,19 @@ export const data = new EmbedPage(
         },
         {
             name: 'Temas a ver',
-            value: event.summary.includes('Holiday')
+            value: event.summary.toLowerCase().includes('holiday')
                 ? 'NO HAY CLASES'
                 : extractTopicsFromEventDescription(event.description),
         },
         {
             name: 'Ejercicio a tener entregado',
-            value: event.summary.includes('Holiday')
+            value: event.summary.toLowerCase().includes('holiday')
                 ? 'NO HAY CLASES'
                 : extractExercisesFromEventDescription(event.description),
         },
         {
             name: 'Paper a tener leído',
-            value: event.summary.includes('Holiday')
+            value: event.summary.toLowerCase().includes('holiday')
                 ? 'NO HAY CLASES'
                 : extractLecturesFromEventDescription(event.description) +
                   '\n*Para encontrar el link a un paper podés hacerlo desde ' +
