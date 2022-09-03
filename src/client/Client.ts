@@ -183,8 +183,31 @@ class Bot extends Client {
             this.logger.error(`Invalid class type.`);
         }
 
+        // Mensaje del día anterior al mediodía.
         cron.schedule(
-            '0 00 17 * 3,4,5,6 1,4',
+            '0 00 12 * * 1,4',
+            () => {
+                this.logger.info('Sending class reminder...');
+                next_class_embed.send();
+                this.logger.success('Class remainder sent.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
+
+        // El mensaje de una hora antes de los martes.
+        cron.schedule(
+            '0 00 18 * * 2',
+            () => {
+                this.logger.info('Sending class reminder...');
+                next_class_embed.send();
+                this.logger.success('Class remainder sent.');
+            },
+            { timezone: 'America/Argentina/Buenos_Aires' }
+        );
+
+        // El mensaje de una hora antes de los viernes.
+        cron.schedule(
+            '0 30 16 * * 5',
             () => {
                 this.logger.info('Sending class reminder...');
                 next_class_embed.send();
@@ -194,17 +217,7 @@ class Bot extends Client {
         );
 
         cron.schedule(
-            '0 00 18 * 3,4,5,6 1,4',
-            () => {
-                this.logger.info('Sending class reminder...');
-                next_class_embed.send();
-                this.logger.success('Class remainder sent.');
-            },
-            { timezone: 'America/Argentina/Buenos_Aires' }
-        );
-
-        cron.schedule(
-            '0 10 22 * 3,4,5,6 1,4',
+            '0 10 22 * * 2,5',
             async () => {
                 this.logger.info('Loading next class event data...');
                 await this.updateNextClassData();
