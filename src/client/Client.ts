@@ -1,5 +1,13 @@
 import consola, { Consola } from 'consola';
-import { Client, Intents, Collection, Channel, VoiceChannel, AnyChannel } from 'discord.js';
+import {
+    Client,
+    Intents,
+    Collection,
+    Channel,
+    VoiceChannel,
+    AnyChannel,
+    GuildChannel,
+} from 'discord.js';
 import { Config } from '../interfaces/Config';
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';

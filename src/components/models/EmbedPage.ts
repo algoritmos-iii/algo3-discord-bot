@@ -15,9 +15,7 @@ export class EmbedPage {
     public client: AlgoBot;
     public data: MessageEmbed;
     public name: string;
-    public components!:
-        | (MessageActionRow)[]
-        | undefined;
+    public components!: MessageActionRow[] | undefined;
     public targetChannels!: TextChannel[];
     public content: string | null;
     public autoSend: boolean;
@@ -92,7 +90,7 @@ export class EmbedPage {
         return {
             components: this.components,
             embeds: [this.data],
-            content: this.content
+            content: this.content,
         };
     }
 
@@ -104,7 +102,9 @@ export class EmbedPage {
 
             if (this.targetChannelIsNotEmpty(previousMessages) && this.edit) {
                 // Si bien no esta explicito en los tipos, MessageEditOptions esta contenido en MessageOptions
-                await previousMessages.first()!.edit(messageContent as MessageEditOptions);
+                await previousMessages
+                    .first()!
+                    .edit(messageContent as MessageEditOptions);
             } else if (
                 this.targetChannelIsNotEmpty(previousMessages) &&
                 this.cleanChatHistory
