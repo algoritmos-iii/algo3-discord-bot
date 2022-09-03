@@ -149,9 +149,9 @@ class Bot extends Client {
         const unusedClonedChannels = this.channels.cache.filter(
             (channel) =>
                 channel.isVoice() &&
-                (channel as VoiceChannel).members.size === 0 &&
                 this.isMitosisCategory(channel) &&
-                this.isNotDonor(channel)
+                this.isNotDonor(channel) &&
+                (channel as VoiceChannel).members.size === 0
         );
 
         this.logger.success(`Unused channels filtered.`);
@@ -163,11 +163,8 @@ class Bot extends Client {
         return channel.id !== this.config.mitosisVoiceChannelID;
     }
 
-    private isMitosisCategory(channel: Channel) {
-        return (
-            (channel as VoiceChannel).parent!.id ==
-            this.config.mitosisCategoryID
-        );
+    private isMitosisCategory(channel: GuildChannel) {
+        return channel.parentId === this.config.mitosisCategoryID;
     }
 
     public scheduleMessages() {
