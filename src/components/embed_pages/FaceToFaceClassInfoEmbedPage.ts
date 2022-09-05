@@ -18,9 +18,9 @@ export const data = new EmbedPage(
             value: AlgoBot.dateFromISO(
                 event.start.dateTime,
                 event.start.timeZone
-            ).includes('lunes')
-                ? '313'
-                : '400',
+            ).includes('martes')
+                ? '222'
+                : '313',
         },
         {
             name: 'Detalles de la clase',
