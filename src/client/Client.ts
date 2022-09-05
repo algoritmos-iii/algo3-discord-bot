@@ -217,7 +217,7 @@ class Bot extends Client {
         );
 
         cron.schedule(
-            '0 10 22 * * 2,5',
+            '0 00 11 * * *',
             async () => {
                 this.logger.info('Loading next class event data...');
                 await this.updateNextClassData();
