@@ -11,7 +11,7 @@ COPY assets /assets
 COPY scripts /scripts
 COPY submodules /submodules
 COPY src /src
-COPY package.json tsconfig.json Pipfile Pipfile.lock /
+COPY package.json tsconfig.json /
 # Install & build.
 RUN npm install && npm run build
 # Run the command
